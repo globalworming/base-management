@@ -1,0 +1,1 @@
+3h create repo, react app, integrate firebase, host with github pages, start first steps, auth, create game

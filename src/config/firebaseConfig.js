@@ -5,7 +5,8 @@ import {
     sendPasswordResetEmail,
     signInAnonymously,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 } from "firebase/auth";
 import {getFirestore,} from "firebase/firestore";
 
@@ -67,6 +68,9 @@ const signInAsAnonymous = () => {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+onAuthStateChanged(auth, user => {
+    console.log({auth, user})
+});
 const db = getFirestore(app);
 export {
     auth,
