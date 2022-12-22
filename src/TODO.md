@@ -1,7 +1,8 @@
 ### as very basic funcions, mock and simulate where needed to go fast
 - [x] login
-- [ ] create game, examples scenario
-- [ ] copy invite
+- [x] create game, 
+- [ ] examples scenario
+- [x] copy invite
 - [ ] one player joins
 - [ ] facilitator start day
 - [ ] scenario as tabular data

@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {auth, db, logout} from "../../../config/firebaseConfig";
 import {addDoc, collection, onSnapshot, query, where} from "firebase/firestore";
 
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
-    const navigate = useNavigate();
     const [games, setGames] = useState([]);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!user) return
@@ -17,7 +16,9 @@ function Dashboard() {
         return onSnapshot(q, (querySnapshot) => {
             const games = [];
             querySnapshot.forEach((doc) => {
-                games.push(doc.data());
+                let game = doc.data();
+                game.id = doc.id
+                games.push(game);
             });
             setGames(games)
         })
@@ -34,25 +35,37 @@ function Dashboard() {
         });
     };
 
-    return (<div>
-        <div>
+    async function copyTextToClipboard(text) {
+        if ('clipboard' in navigator) {
+            return await navigator.clipboard.writeText(text);
+        } else {
+            return document.execCommand('copy', true, text);
+        }
+    }
+
+
+    return (<>
             <h1>Welcome Facilitator</h1>
             <button onClick={createGame}>
                 create new game
             </button>
-            <h2>in progress</h2>
-            {games.map(it => <p key={it.name.replaceAll(" ", "")}>{it.name} <button>continue</button> <button>copy invitation link</button></p>)}
-        </div>
+            <h2>Games in progress</h2>
+            {games.map(it => {
+                const inviteLink = window.location.protocol + "//" + window.location.host + "/join/" + it.id;
 
-        <div>
-            <h2>Debug</h2>
-            Auth:
+                return <div key={it.id}>
+                    <pre>{JSON.stringify(it, null, 2)}</pre>
+                    <button>continue</button>
+                    <button onClick={() => copyTextToClipboard(inviteLink)}>copy invitation link</button>
+                    <input type="text" readOnly value={inviteLink}/></div>;
+            })}
+
+            <h2>Auth</h2>
             <pre>{JSON.stringify(user, null, 2)}</pre>
             <button onClick={logout}>
                 Logout
             </button>
-        </div>
-    </div>);
+    </>);
 }
 
 export default Dashboard;
