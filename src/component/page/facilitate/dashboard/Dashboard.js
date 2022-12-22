@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {auth, db} from "../../../../config/firebaseConfig";
 import {addDoc, collection, onSnapshot, query, where} from "firebase/firestore";
 import ShowsAuth from "../../../organism/debug/ShowsAuth";
+import {GameState} from "../../../../domain/state";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
@@ -32,6 +33,7 @@ function Dashboard() {
         addDoc(collection(db, "games"), {
             name: "some game " + Date.now(),
             facilitator: user.uid,
+            state: GameState.CREATED
         });
     };
 
@@ -55,7 +57,7 @@ function Dashboard() {
 
                 return <div key={it.id}>
                     <pre>{JSON.stringify(it, null, 2)}</pre>
-                    <button>continue</button>
+                    <button onClick={() => navigate(`/facilitate/${it.id}`)}>continue</button>
                     <button onClick={() => copyTextToClipboard(inviteLink)}>copy invitation link</button>
                     <input type="text" readOnly value={inviteLink}/></div>;
             })}

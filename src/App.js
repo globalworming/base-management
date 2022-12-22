@@ -6,6 +6,7 @@ import Register from "./component/page/auth/Register";
 import Reset from "./component/page/auth/Reset";
 import Dashboard from "./component/page/facilitate/dashboard/Dashboard";
 import Play from "./component/page/play/Play";
+import Facilitate from "./component/page/facilitate/Facilitate";
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/reset" element={<Reset />} />
                 <Route exact path="/dashboard" element={<Dashboard />} />
-                <Route exact path="/facilitate/:gameId" element={<h1>Facilitate</h1>} />
+                <Route exact path="/facilitate/:gameId" element={<Facilitate />} />
                 <Route exact path="/join/:gameId" element={<Play />} />
             </Routes>
       </div>
