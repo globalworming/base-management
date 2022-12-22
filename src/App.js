@@ -1,10 +1,11 @@
 import './App.css';
 import React from 'react';
 import {Route, Routes,} from "react-router-dom";
-import Login from "./component/page/Login";
-import Register from "./component/page/Register";
-import Reset from "./component/page/Reset";
+import Login from "./component/page/auth/Login";
+import Register from "./component/page/auth/Register";
+import Reset from "./component/page/auth/Reset";
 import Dashboard from "./component/page/dashboard/Dashboard";
+import Play from "./component/page/play/Play";
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/reset" element={<Reset />} />
                 <Route exact path="/dashboard" element={<Dashboard />} />
+                <Route exact path="/facilitate/:gameId" element={<h1>Facilitate</h1>} />
+                <Route exact path="/join/:gameId" element={<Play />} />
             </Routes>
       </div>
   );

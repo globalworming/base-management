@@ -3,7 +3,8 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {useNavigate, useLocation} from "react-router-dom";
 import {auth, db, logout} from "../../../config/firebaseConfig";
 import {addDoc, collection, onSnapshot, query, where} from "firebase/firestore";
-
+import ShowsAuth from "../../organism/debug/ShowsAuth";
+import ShowsGame from "../../organism/debug/ShowsGame";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
@@ -31,7 +32,7 @@ function Dashboard() {
     const createGame = () => {
         addDoc(collection(db, "games"), {
             name: "some game " + Date.now(),
-            facilitator: user.uid
+            facilitator: user.uid,
         });
     };
 
@@ -60,11 +61,8 @@ function Dashboard() {
                     <input type="text" readOnly value={inviteLink}/></div>;
             })}
 
-            <h2>Auth</h2>
-            <pre>{JSON.stringify(user, null, 2)}</pre>
-            <button onClick={logout}>
-                Logout
-            </button>
+            <ShowsAuth/>
+
     </>);
 }
 

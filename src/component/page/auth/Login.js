@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {auth, logInWithEmailAndPassword, signInAsAnonymous} from "../../config/firebaseConfig";
+import {auth, logInWithEmailAndPassword, signInAsAnonymous} from "../../../config/firebaseConfig";
 import {useAuthState} from "react-firebase-hooks/auth";
 
 const Login = () => {
