@@ -4,7 +4,7 @@ import {Route, Routes,} from "react-router-dom";
 import Login from "./component/page/auth/Login";
 import Register from "./component/page/auth/Register";
 import Reset from "./component/page/auth/Reset";
-import Dashboard from "./component/page/dashboard/Dashboard";
+import Dashboard from "./component/page/facilitate/dashboard/Dashboard";
 import Play from "./component/page/play/Play";
 
 

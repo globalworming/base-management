@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {useNavigate, useLocation} from "react-router-dom";
-import {auth, db, logout} from "../../../config/firebaseConfig";
+import {useNavigate} from "react-router-dom";
+import {auth, db} from "../../../../config/firebaseConfig";
 import {addDoc, collection, onSnapshot, query, where} from "firebase/firestore";
-import ShowsAuth from "../../organism/debug/ShowsAuth";
-import ShowsGame from "../../organism/debug/ShowsGame";
+import ShowsAuth from "../../../organism/debug/ShowsAuth";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);

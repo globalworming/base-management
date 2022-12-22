@@ -3,10 +3,13 @@
 - [x] create game, 
 - [ ] examples scenario
 - [x] copy invite
-- [ ] one player joins
+- [x] one player joins
 - [ ] facilitator start day
 - [ ] scenario as tabular data
 - [ ] first day with an event that changes a world attribute
 - [ ] a fast forward event
 - [ ] ticking stops at end of day
 - [ ] start next day
+
+### tech debt
+- [ ] refactor firebase listeners to single context providers
