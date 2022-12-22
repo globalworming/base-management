@@ -4,12 +4,12 @@
 - [x] examples scenario
 - [x] copy invite
 - [x] one player joins
-- [ ] facilitator start day
+- [X] facilitator start day
 - [x] scenario as tabular data
-- [ ] first day with an event that changes a world attribute
+- [x] first day with an event that changes a world attribute
 - [ ] a fast forward event
-- [ ] ticking stops at end of day
-- [ ] start next day
+- [X] ticking stops at end of day
+- [x] start next day
 
 ### editor convenience
 - [ ] load all scenarios and sanity check
