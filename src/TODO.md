@@ -11,6 +11,10 @@
 - [ ] ticking stops at end of day
 - [ ] start next day
 
+### editor convenience
+- [ ] load all scenarios and sanity check
+- [ ] edit game state
+
 ### tech debt
 - [ ] refactor firebase listeners to single context providers
 - [ ] refactor centralize game controls 

@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {db} from "../../config/firebaseConfig";
-import {useParams} from "react-router-dom";
 import {doc, runTransaction} from "firebase/firestore";
 import {GameState} from "../../domain/state";
 
 function PhaseProgressionService({game}) {
-    const {gameId} = useParams();
     const [phaseProgress, setPhaseProgress] = useState(undefined)
 
     useEffect(() => {
@@ -27,14 +25,14 @@ function PhaseProgressionService({game}) {
     }, [phaseProgress])
 
     async function hourTick() {
-        const gameDocRef = doc(db, "games", gameId);
+        const gameDocRef = doc(db, "games", game.id);
         await runTransaction(db, async (transaction) => {
             await transaction.update(gameDocRef, {phaseProgress: 0, hour: ++game.hour, progressStarted: Date.now()});
         });
     }
 
     async function nextDay() {
-        const gameDocRef = doc(db, "games", gameId);
+        const gameDocRef = doc(db, "games", game.id);
         await runTransaction(db, async (transaction) => {
             await transaction.update(gameDocRef, {state: GameState.PROGRESS_HALTED, phaseProgress: 0, hour: 0, day: ++game.day});
         });

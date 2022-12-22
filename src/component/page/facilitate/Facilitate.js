@@ -3,13 +3,14 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, db} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
-import {doc, onSnapshot, runTransaction} from "firebase/firestore";
+import {doc, onSnapshot} from "firebase/firestore";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import ShowsScenario from "../../organism/debug/ShowsScenario";
 import {GameState} from "../../../domain/state";
 import ProgressControls from "../../organism/ProgressControls";
-import PhaseProgressionService from "../../organism/PhaseProgressionService";
+import PhaseProgressionService from "../../service/PhaseProgressionService";
+import EventService from "../../service/EventService";
 
 function Facilitate() {
     const {gameId} = useParams();
@@ -37,31 +38,10 @@ function Facilitate() {
         return null;
     }
 
-    async function startDay() {
-        const gameDocRef = doc(db, "games", gameId);
-        await runTransaction(db, async (transaction) => {
-            await transaction.update(gameDocRef, {state: GameState.PROGRESSING, progressStarted: Date.now()});
-        });
-    }
-   async function pause() {
-        const gameDocRef = doc(db, "games", gameId);
-        await runTransaction(db, async (transaction) => {
-            await transaction.update(gameDocRef, {state: GameState.PROGRESS_HALTED});
-        });
-    }
-
-    async function continueGame() {
-        const gameDocRef = doc(db, "games", gameId);
-        await runTransaction(db, async (transaction) => {
-            await transaction.update(gameDocRef, {state: GameState.PROGRESSING, progressStarted: Date.now()});
-        });
-    }
-
-
-
     return <><h1>you are facilitating '{game.name}'</h1>
         <ProgressControls game={game}/>
         <PhaseProgressionService game={game}/>
+        <EventService game={game}/>
         <ShowsGame gameId={game.id}/>
         <ShowsPlayers gameId={game.id}/>
         <ShowsScenario scenarioId={game.scenario}/>

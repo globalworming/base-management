@@ -39,6 +39,8 @@ function Dashboard() {
             progressionRate: 96,
             day: 1,
             hour: 0,
+            activeEvents: [],
+            phaseProgress: 0
         });
     };
 

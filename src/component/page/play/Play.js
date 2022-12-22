@@ -52,7 +52,7 @@ function Play() {
     }
 
     return <><h1>you are playing '{game.name}' as '{players.find((player) => player.controlledBy === user.uid).name}'</h1>
-
+        {game.activeEvents.find(e => e === "FIRE_IN_SMELTER") && <h2>🔥🔥🔥 Your smelter is on fire, better hurry 🔥🔥🔥</h2>}
         <ShowsGame gameId={game.id}/>
         <ShowsPlayers gameId={game.id}/>
         <ShowsAuth/>
