@@ -34,7 +34,11 @@ function Dashboard() {
             name: "some game " + Date.now(),
             facilitator: user.uid,
             state: GameState.CREATED,
-            scenario: "catastrophe"
+            scenario: "catastrophe",
+            // 96 to have 24 hours in 15 minutes
+            progressionRate: 96,
+            day: 1,
+            hour: 0,
         });
     };
 

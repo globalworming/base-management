@@ -15,7 +15,7 @@ function ShowsScenario({scenarioId}) {
     }, [])
 
 
-    return <><h2>Scenario</h2>
+    return <><h2>Scenario '{scenarioId}'</h2>
         <pre>{JSON.stringify(scenario, null, 2)}</pre>
     </>
 }
