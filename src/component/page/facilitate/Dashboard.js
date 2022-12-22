@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useNavigate} from "react-router-dom";
-import {auth, db} from "../../../../config/firebaseConfig";
+import {auth, db} from "../../../config/firebaseConfig";
 import {addDoc, collection, onSnapshot, query, where} from "firebase/firestore";
-import ShowsAuth from "../../../organism/debug/ShowsAuth";
-import {GameState} from "../../../../domain/state";
+import ShowsAuth from "../../organism/debug/ShowsAuth";
+import {GameState} from "../../../domain/state";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
@@ -33,7 +33,8 @@ function Dashboard() {
         addDoc(collection(db, "games"), {
             name: "some game " + Date.now(),
             facilitator: user.uid,
-            state: GameState.CREATED
+            state: GameState.CREATED,
+            scenario: "catastrophe"
         });
     };
 

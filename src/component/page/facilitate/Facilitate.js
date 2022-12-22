@@ -8,6 +8,7 @@ import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import catastrophe from "../../../domain/scenario/catastrophe.csv"
 import {parse} from 'papaparse';
+import ShowsScenario from "../../organism/debug/ShowsScenario";
 
 function Facilitate() {
     const {gameId} = useParams();
@@ -58,6 +59,7 @@ function Facilitate() {
         <ShowsGame gameId={game.id}/>
         <ShowsPlayers gameId={game.id}/>
         <ShowsAuth/>
+        <ShowsScenario scenarioId={game.scenario}/>
     </>
 }
 
