@@ -14,7 +14,7 @@
 - [X] create player automatically selects
 
 ### some added niceties 
-- [ ] show next events
+- [X] show next events
 - [x] show active players, 30 second heartbeat, shows disconnected when 1 minute without heartbeat (TODO: take clock skew into account, use server time)
 
 ### editor convenience
