@@ -13,6 +13,10 @@
 - [x] fix hashrouter invite link on github pages
 - [X] create player automatically selects
 
+### some added niceties 
+- [ ] show next events
+- [x] show active players, 30 second heartbeat, shows disconnected when 1 minute without heartbeat (TODO: take clock skew into account, use server time)
+
 ### editor convenience
 - [ ] load all scenarios and sanity check
 - [ ] fully edit game state
@@ -24,7 +28,7 @@
 
 ### notes
 - [ ] do multi actor e2e test, check serenity js maybe
-- [ ] check connected/disconnected https://firebase.google.com/docs/database/web/offline-capabilities
+- [x] check connected/disconnected https://firebase.google.com/docs/database/web/offline-capabilities ❌ there is a solution involving real time database, not needed yet
 - [ ] check security rules to ensure you cant mess with other peoples game data, though that's probably a minor issue
 - [ ] check firebase performance monitoring
 - [ ] how much will it cost to run a game? 10k games?

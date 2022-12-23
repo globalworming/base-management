@@ -3,10 +3,12 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, db, signInAsAnonymous} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
-import {collection, doc, onSnapshot, query} from "firebase/firestore";
+import {collection, doc, onSnapshot, query, runTransaction} from "firebase/firestore";
+import {onDisconnect, ref} from "firebase/database";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
+import {GameState} from "../../../domain/state";
 
 
 function Play() {
@@ -14,6 +16,7 @@ function Play() {
     const [game, setGame] = useState(undefined)
     const [players, setPlayers] = useState(undefined)
     const {gameId} = useParams();
+    const selectedPlayer = players && user && players.find((player) => player.controlledBy === user.uid);
 
     useEffect(() => {
         return onSnapshot(doc(db, "games", gameId), (doc) => {
@@ -37,6 +40,18 @@ function Play() {
         })
     }, [game && game.id])
 
+    useEffect(() => {
+        if (!game || !selectedPlayer) return
+        const interval = setInterval(async () => {
+            const playerDocRef = doc(db, "games", game.id, "players", selectedPlayer.id);
+            await runTransaction(db, async (transaction) => {
+                await transaction.update(playerDocRef, {
+                    heartbeat: Date.now()
+                });
+            });
+        }, 30000);
+        return () => clearInterval(interval);
+    }, [game && game.id, selectedPlayer])
 
     if (!loading && user === null) {
         signInAsAnonymous()
@@ -46,12 +61,12 @@ function Play() {
         return null;
     }
 
-    const noPlayerSelected = !players || players.length <= 0 || !players.find((player) => player.controlledBy === user.uid)
-    if (noPlayerSelected) {
+    if (!selectedPlayer) {
         return <SelectPlayer gameId={game.id}/>
     }
 
-    return <><h1>you are playing '{game.name}' as '{players.find((player) => player.controlledBy === user.uid).name}'</h1>
+    return <><h1>you are playing '{game.name}' as
+        '{selectedPlayer.name}'</h1>
         {game.activeEvents.find(e => e === "FIRE_IN_SMELTER") && <h2>🔥🔥🔥 Your smelter is on fire, better hurry 🔥🔥🔥</h2>}
         <ShowsGame gameId={game.id}/>
         <ShowsPlayers gameId={game.id}/>

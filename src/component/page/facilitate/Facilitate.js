@@ -11,6 +11,7 @@ import {GameState} from "../../../domain/state";
 import ProgressControls from "../../organism/ProgressControls";
 import PhaseProgressionService from "../../service/PhaseProgressionService";
 import EventService from "../../service/EventService";
+import ActivePlayers from "../../organism/ActivePlayers";
 
 function Facilitate() {
     const {gameId} = useParams();
@@ -40,6 +41,7 @@ function Facilitate() {
 
     return <><h1>you are facilitating '{game.name}'</h1>
         <ProgressControls game={game}/>
+        <ActivePlayers game={game}/>
         <PhaseProgressionService game={game}/>
         <EventService game={game}/>
         <ShowsGame gameId={game.id}/>

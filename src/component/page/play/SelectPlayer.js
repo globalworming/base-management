@@ -27,6 +27,8 @@ function SelectPlayer({gameId}) {
         await addDoc(collection(db, "games", gameId, "players"), {
             name: name,
             controlledBy: user.uid,
+            // TODO https://firebase.google.com/docs/firestore/solutions/presence#solution_cloud_functions_with_realtime_database
+            heartbeat: Date.now()
         });
     }
 
