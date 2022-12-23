@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {db} from "../../config/firebaseConfig";
-import {doc, runTransaction} from "firebase/firestore";
 import Scenarios from "../../domain/scenario";
+import Events from "../../domain/event";
 import {parse} from "papaparse";
 
 function EventService({game}) {
@@ -17,24 +16,7 @@ function EventService({game}) {
     }, [])
 
     async function handle(e) {
-        console.log({e})
-
-        switch (e) {
-            case "FIRE_IN_SMELTER":
-                await fireInSmelter();
-                break;
-            default:
-                break;
-        }
-
-        async function fireInSmelter() {
-            const gameDocRef = doc(db, "games", game.id);
-            await runTransaction(db, async (transaction) => {
-                await transaction.update(gameDocRef, {
-                   activeEvents: [...game.activeEvents, "FIRE_IN_SMELTER"]
-                });
-            });
-        }
+        await Events[e](game);
     }
 
     useEffect(() => {

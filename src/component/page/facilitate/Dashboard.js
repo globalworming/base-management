@@ -36,7 +36,9 @@ function Dashboard() {
             state: GameState.CREATED,
             scenario: "catastrophe",
             // 96 to have 24 hours in 15 minutes
-            progressionRate: 96,
+            //progressionRate: 96,
+            // two hours per second
+            progressionRate: 7200,
             day: 1,
             hour: 0,
             activeEvents: [],

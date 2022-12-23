@@ -7,7 +7,7 @@
 - [X] facilitator start day
 - [x] scenario as tabular data
 - [x] first day with an event that changes a world attribute
-- [ ] a fast forward event
+- [X] a fast forward event
 - [X] ticking stops at end of day
 - [x] start next day
 - [x] fix hashrouter invite link on github pages
@@ -15,9 +15,9 @@
 
 ### editor convenience
 - [ ] load all scenarios and sanity check
-- [ ] edit game state
+- [ ] fully edit game state
 
 ### tech debt
 - [ ] refactor firebase listeners to single context providers
-- [ ] refactor centralize game controls 
-- [ ] no e2e tests at all
+- [ ] refactor centralize game control transactions 
+- [ ] no automated quality checks at all
