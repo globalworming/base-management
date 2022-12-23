@@ -12,6 +12,7 @@ import ProgressControls from "../../organism/ProgressControls";
 import PhaseProgressionService from "../../service/PhaseProgressionService";
 import EventService from "../../service/EventService";
 import ActivePlayers from "../../organism/ActivePlayers";
+import NextEvents from "../../organism/NextEvents";
 
 function Facilitate() {
     const {gameId} = useParams();
@@ -41,6 +42,7 @@ function Facilitate() {
 
     return <><h1>you are facilitating '{game.name}'</h1>
         <ProgressControls game={game}/>
+        <NextEvents scenarioId={game.scenario} game={game}/>
         <ActivePlayers game={game}/>
         <PhaseProgressionService game={game}/>
         <EventService game={game}/>

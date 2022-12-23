@@ -4,11 +4,9 @@ import {auth, db, signInAsAnonymous} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
 import {collection, doc, onSnapshot, query, runTransaction} from "firebase/firestore";
-import {onDisconnect, ref} from "firebase/database";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
-import {GameState} from "../../../domain/state";
 
 
 function Play() {
@@ -24,7 +22,7 @@ function Play() {
             game.id = doc.id;
             setGame(game);
         });
-    }, [game && game.id])
+    }, [gameId])
 
     useEffect(() => {
         if (!game) return

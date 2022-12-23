@@ -38,7 +38,7 @@ function Facilitate({game}) {
         <h2>Game Progression Controls</h2>
         <button disabled={game.state === GameState.PROGRESSING} onClick={continueGame}>▶️</button>
         <button disabled={game.state !== GameState.PROGRESSING} onClick={pause}>⏸</button>
-        <input type="text" readOnly value={`Day ${game.day} - ${game.hour.toString().padStart(2, "0")}:${((game.progressionRate * phaseProgress / 60) % 60).toFixed(0).padStart(2, "0")}Uhr`}/>
+        <input type="text" readOnly value={`Day ${game.day} - ${game.hour.toString().padStart(2, "0")}:${((game.progressionRate * phaseProgress / 60) % 60).toFixed(0).padStart(2, "0")}`}/>
     </>
 }
 
