@@ -22,12 +22,11 @@ function SelectPlayer({gameId}) {
         })
     }, [gameId])
 
-    function createPlayer(e) {
+    async function createPlayer(e) {
         e.preventDefault()
-        addDoc(collection(db, "games", gameId, "players"), {
+        await addDoc(collection(db, "games", gameId, "players"), {
             name: name,
-            // TODO when create, do immediately
-            // controlledBy: user.uid,
+            controlledBy: user.uid,
         });
     }
 

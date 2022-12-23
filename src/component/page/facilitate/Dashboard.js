@@ -60,7 +60,7 @@ function Dashboard() {
             </button>
             <h2>Games in progress</h2>
             {games.map(it => {
-                const inviteLink = window.location.protocol + "//" + window.location.host + "/#/join/" + it.id;
+                const inviteLink = window.location.href.split("/#")[0] +  "/#/join/" + it.id;
 
                 return <div key={it.id}>
                     <pre>{JSON.stringify(it, null, 2)}</pre>

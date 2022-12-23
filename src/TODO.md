@@ -10,8 +10,8 @@
 - [ ] a fast forward event
 - [X] ticking stops at end of day
 - [x] start next day
-- [ ] fix hashrouter invite link on github pages
-- [ ] create player automatically selects
+- [x] fix hashrouter invite link on github pages
+- [X] create player automatically selects
 
 ### editor convenience
 - [ ] load all scenarios and sanity check

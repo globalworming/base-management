@@ -42,7 +42,7 @@ function Play() {
         signInAsAnonymous()
     }
 
-    if (!game) {
+    if (!game || !user) {
         return null;
     }
 
