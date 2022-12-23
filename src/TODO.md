@@ -21,3 +21,10 @@
 - [ ] refactor firebase listeners to single context providers
 - [ ] refactor centralize game control transactions 
 - [ ] no automated quality checks at all
+
+### notes
+- [ ] do multi actor e2e test, check serenity js maybe
+- [ ] check connected/disconnected https://firebase.google.com/docs/database/web/offline-capabilities
+- [ ] check security rules to ensure you cant mess with other peoples game data, though that's probably a minor issue
+- [ ] check firebase performance monitoring
+- [ ] how much will it cost to run a game? 10k games?
