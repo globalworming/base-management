@@ -18,9 +18,9 @@ To see it working, follow the steps. That's basically a test script that can be 
 |             | login as guest                                                     | see "Welcome Facilitator"                      |
 |             | create new game                                                    | see new game under "Games in progress"         |
 |             | copy invitation link                                               |                                                |
-|             | continue game                                                      | see "you are facilitating ${gameName}"         |
-| player      | open browser (inkognito or different profile) on ${invitationLink} | see 'create player' form                       |
-|             | create player with name ${name}                                    | see "you are playing ${gameName} as ${name}"   |
+|             | continue game                                                      | see "you are facilitating {gameName}"         |
+| player      | open browser (inkognito or different profile) on {invitationLink} | see 'create player' form                       |
+|             | create player with name {name}                                    | see "you are playing {gameName} as {name}"   |
 | facilitator | start game                                                         | ingame-time progresses very fast               |
 |             |                                                                    | at 13:00 ingame-time progresses sligtly slower |
 |             |                                                                    | at 14:00 see active event "fire in smelter"    |
