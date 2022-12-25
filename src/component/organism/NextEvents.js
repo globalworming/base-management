@@ -22,7 +22,6 @@ function NextEvents({scenarioId, game}) {
         if (!game || !scenario || scenario.length <= 0) {
             return
         }
-        console.log(scenario)
         const first = scenario
             .filter(e => !!e.event)
             .filter(e => e.day >= game.day)
@@ -32,15 +31,17 @@ function NextEvents({scenarioId, game}) {
             .filter(e => !!e.event)
             .filter(e => e.day >= first.day)
             .filter(e => e.hour >= first.hour)
-            .slice(0,10))
+            .slice(0, 10))
     }, [scenario && scenario.length, game && game.hour])
 
 
     if (!game) {
         return null
     }
-    return <><h2>Next Events in '{scenarioId}'</h2>
-        {nextEvents.map((e,i) => <span key={i}><input style={{width: "100%"}} type="text" readOnly value={`Day ${e.day} - ${e.hour.toString().padStart(2, "0")}:00 - ${e.event}`}/></span>)}
+    return <>
+        <h2>upcoming events</h2>
+        {nextEvents.map((e, i) => <p
+            key={i}>{`Day ${e.day} - ${e.hour.toString().padStart(2, "0")}:00 - ${e.event}`}</p>)}
 
     </>
 }

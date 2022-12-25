@@ -13,6 +13,14 @@ import PhaseProgressionService from "../../service/PhaseProgressionService";
 import EventService from "../../service/EventService";
 import ActivePlayers from "../../organism/ActivePlayers";
 import NextEvents from "../../organism/NextEvents";
+import ShowsFacilitatorCharacters from "../../organism/ShowsFacilitatorCharacters";
+
+const Group = function ({children}) {
+  return <div style={{border: "3px double black", padding: "2px", borderRadius: "5px"}}>
+      {children}
+  </div>
+
+}
 
 function Facilitate() {
     const {gameId} = useParams();
@@ -28,11 +36,11 @@ function Facilitate() {
         });
     }, [game && game.id])
 
-  useEffect(() => {
-      if (!game || game.state !== GameState.PROGRESSING) return
-      setPhaseProgress(Date.now() - game.progressStarted)
+    useEffect(() => {
+        if (!game || game.state !== GameState.PROGRESSING) return
+        setPhaseProgress(Date.now() - game.progressStarted)
         const interval = setInterval(() => setPhaseProgress(Date.now() - game.progressStarted), 1000);
-      return () => clearInterval(interval);
+        return () => clearInterval(interval);
     }, [game && game.state])
 
 
@@ -40,15 +48,26 @@ function Facilitate() {
         return null;
     }
 
-    return <><h1>you are facilitating '{game.name}'</h1>
-        <ProgressControls game={game}/>
-        <NextEvents scenarioId={game.scenario} game={game}/>
-        <ActivePlayers game={game}/>
+    return <><h1 style={{width: "100%"}}>you are facilitating '{game.name}'</h1>
+        <Group>
+            <ProgressControls game={game}/>
+            <NextEvents scenarioId={game.scenario} game={game}/>
+        </Group>
+        <Group>
+            <ActivePlayers game={game}/>
+        </Group>
+        <Group>
+            <ShowsFacilitatorCharacters game={game}/>
+        </Group>
         <PhaseProgressionService game={game}/>
         <EventService game={game}/>
+        <hr style={{width: "100%"}}/>
         <ShowsGame gameId={game.id}/>
+        <hr style={{width: "100%"}}/>
         <ShowsPlayers gameId={game.id}/>
+        <hr style={{width: "100%"}}/>
         <ShowsScenario scenarioId={game.scenario}/>
+        <hr style={{width: "100%"}}/>
         <ShowsAuth/>
     </>
 }

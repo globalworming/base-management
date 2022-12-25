@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {db} from "../../config/firebaseConfig";
-import {collection, doc, onSnapshot, query, runTransaction} from "firebase/firestore";
-import {GameState} from "../../domain/state";
+import {collection, onSnapshot, query} from "firebase/firestore";
 
 function ActivePlayers({game}) {
 
@@ -19,17 +18,17 @@ function ActivePlayers({game}) {
             });
             setPlayers(players)
         })
-    }, [game, JSON.stringify(players)])
+    }, [game])
 
     if (!game || players === undefined) {
         return null;
     }
 
 
-    return <>
-        <h2>Active Players (shows inactive after ~1 minute of disconnection)</h2>
-        {players.map(player => <p key={player.id}>{(Date.now() - player.heartbeat) < (60 * 1000)  ? '🟢': '🔴'}{player.name}</p>)}
-    </>
+    return <><div>
+        <h2>Players</h2>
+        {players.map(player => <p key={player.id}>{(Date.now() - player.heartbeat) < (35 * 1000)  ? '🟢': '🔴'}{player.name}</p>)}
+    </div></>
 }
 
 export default ActivePlayers;

@@ -1,3 +1,7 @@
+# TODO
+## next:
+- [ ] refactor snapshot listeners, read count in firebase is getting ridiculous
+
 ### as very basic funcions, mock and simulate where needed to go fast
 - [x] login
 - [x] create game, 

@@ -2,3 +2,4 @@
 5.5h create game, copy join link, join and auth anonymously, create player, set player controlled by current user, POC use csv data, start/stop progress, progression service, progression rate, event service of facilitator activates event 
 1h fast forward event, fix invite link, describe e2e test
 1.5h "presence" indicator, display next events for facilitator
+2h setting activities

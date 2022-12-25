@@ -7,6 +7,7 @@ import {collection, doc, onSnapshot, query, runTransaction} from "firebase/fires
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
+import ShowsPlayerCharacters from "../../organism/ShowsPlayerCharacters";
 
 
 function Play() {
@@ -63,11 +64,17 @@ function Play() {
         return <SelectPlayer gameId={game.id}/>
     }
 
-    return <><h1>you are playing '{game.name}' as
+    return <><h1 style={{width: "100%"}}>you are playing '{game.name}' as
         '{selectedPlayer.name}'</h1>
+        <div>
+            <ShowsPlayerCharacters game={game}></ShowsPlayerCharacters>
+        </div>
         {game.activeEvents.find(e => e === "FIRE_IN_SMELTER") && <h2>🔥🔥🔥 Your smelter is on fire, better hurry 🔥🔥🔥</h2>}
+        <hr style={{width: "100%"}}/>
         <ShowsGame gameId={game.id}/>
+        <hr style={{width: "100%"}}/>
         <ShowsPlayers gameId={game.id}/>
+        <hr style={{width: "100%"}}/>
         <ShowsAuth/>
     </>
 }

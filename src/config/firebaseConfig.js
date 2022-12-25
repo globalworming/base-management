@@ -69,7 +69,7 @@ const signInAsAnonymous = () => {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 onAuthStateChanged(auth, user => {
-    console.log({auth, user})
+    //console.log({auth, user})
 });
 const db = getFirestore(app);
 export {
