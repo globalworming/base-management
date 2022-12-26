@@ -1,30 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import {addDoc, collection, doc, onSnapshot, query, runTransaction} from "firebase/firestore";
+import React, {useState} from 'react'
+import {addDoc, collection, doc, runTransaction} from "firebase/firestore";
 import {auth, db} from "../../../config/firebaseConfig";
 import {useAuthState} from "react-firebase-hooks/auth";
 
-function SelectPlayer({gameId}) {
+function SelectPlayer({game, players}) {
 
-    const [players, setPlayers] = useState(undefined)
     const [name, setName] = useState("")
     const [user, loading, error] = useAuthState(auth);
 
-    useEffect(() => {
-        const q = query(collection(db, "games", gameId, "players"));
-        return onSnapshot(q, (querySnapshot) => {
-            const players = [];
-            querySnapshot.forEach((doc) => {
-                let player = doc.data();
-                player.id = doc.id
-                players.push(player);
-            });
-            setPlayers(players)
-        })
-    }, [gameId])
-
     async function createPlayer(e) {
         e.preventDefault()
-        await addDoc(collection(db, "games", gameId, "players"), {
+        await addDoc(collection(db, "games", game.id, "players"), {
             name: name,
             controlledBy: user.uid,
             // TODO https://firebase.google.com/docs/firestore/solutions/presence#solution_cloud_functions_with_realtime_database
@@ -34,9 +20,9 @@ function SelectPlayer({gameId}) {
 
     async function pickPlayer(e, playerId) {
         e.preventDefault()
-        const playerDocRef = doc(db, "games", gameId, "players", playerId);
+        const playerDocRef = doc(db, "games", game.id, "players", playerId);
         await runTransaction(db, async (transaction) => {
-            await transaction.update(playerDocRef, {controlledBy: user.uid});
+            await transaction.update(playerDocRef, {controlledBy: user.uid, heartbeat: Date.now()});
         });
     }
 

@@ -1,25 +1,8 @@
-import React, {useEffect, useState} from "react";
-import {collection, onSnapshot, query} from "firebase/firestore";
-import {db} from "../../config/firebaseConfig";
+import React from "react";
 
-function ShowsFacilitatorCharacters({game}) {
-    const [characters, setCharacters] = useState(undefined)
+function ShowsFacilitatorCharacters({characters}) {
 
-    useEffect(() => {
-        if (!game) return
-        const q = query(collection(db, "games", game.id, "characters"));
-        return onSnapshot(q, (querySnapshot) => {
-            const characters = [];
-            querySnapshot.forEach((doc) => {
-                let character = doc.data();
-                character.id = doc.id
-                characters.push(character);
-            });
-            setCharacters(characters)
-        })
-    }, [game, JSON.stringify(characters)])
-
-    if (!game || characters === undefined) {
+    if (characters === undefined) {
         return null;
     }
 

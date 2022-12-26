@@ -3,68 +3,48 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, db} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
-import {doc, onSnapshot} from "firebase/firestore";
+import {collection, doc, onSnapshot, query} from "firebase/firestore";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import ShowsScenario from "../../organism/debug/ShowsScenario";
-import {GameState} from "../../../domain/state";
 import ProgressControls from "../../organism/ProgressControls";
 import PhaseProgressionService from "../../service/PhaseProgressionService";
 import EventService from "../../service/EventService";
 import ActivePlayers from "../../organism/ActivePlayers";
 import NextEvents from "../../organism/NextEvents";
 import ShowsFacilitatorCharacters from "../../organism/ShowsFacilitatorCharacters";
-
-const Group = function ({children}) {
-  return <div style={{border: "3px double black", padding: "2px", borderRadius: "5px"}}>
-      {children}
-  </div>
-
-}
+import Panel from "../../atom/Panel";
+import {useCharacters, useGame, usePlayers} from "../../../persistence";
 
 function Facilitate() {
-    const {gameId} = useParams();
     const [user, loading, error] = useAuthState(auth);
-    const [game, setGame] = useState(undefined)
-    const [phaseProgress, setPhaseProgress] = useState(undefined)
-
-    useEffect(() => {
-        return onSnapshot(doc(db, "games", gameId), (doc) => {
-            let game = doc.data();
-            game.id = doc.id;
-            setGame(game);
-        });
-    }, [game && game.id])
-
-    useEffect(() => {
-        if (!game || game.state !== GameState.PROGRESSING) return
-        setPhaseProgress(Date.now() - game.progressStarted)
-        const interval = setInterval(() => setPhaseProgress(Date.now() - game.progressStarted), 1000);
-        return () => clearInterval(interval);
-    }, [game && game.state])
-
+    const {gameId} = useParams();
+    const game = useGame(gameId)
+    const players = usePlayers(gameId)
+    const characters = useCharacters(gameId)
 
     if (loading || !game) {
         return null;
     }
 
-    return <><h1 style={{width: "100%"}}>you are facilitating '{game.name}'</h1>
-        <Group>
+    return <>
+        <h1 style={{width: "100%"}}>you are facilitating '{game.name}'</h1>
+        <Panel>
             <ProgressControls game={game}/>
             <NextEvents scenarioId={game.scenario} game={game}/>
-        </Group>
-        <Group>
-            <ActivePlayers game={game}/>
-        </Group>
-        <Group>
-            <ShowsFacilitatorCharacters game={game}/>
-        </Group>
+        </Panel>
+        <Panel>
+            <ActivePlayers players={players}/>
+        </Panel>
+        <Panel>
+            <ShowsFacilitatorCharacters characters={characters}/>
+        </Panel>
         <PhaseProgressionService game={game}/>
         <EventService game={game}/>
         <hr style={{width: "100%"}}/>
-        <ShowsGame gameId={game.id}/>
+        <ShowsGame game={game}/>
         <hr style={{width: "100%"}}/>
-        <ShowsPlayers gameId={game.id}/>
+        <ShowsPlayers players={players}/>
         <hr style={{width: "100%"}}/>
         <ShowsScenario scenarioId={game.scenario}/>
         <hr style={{width: "100%"}}/>

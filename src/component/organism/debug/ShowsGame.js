@@ -1,19 +1,7 @@
-import {db} from "../../../config/firebaseConfig";
-import React, {useEffect, useState} from "react";
-import {doc, onSnapshot} from "firebase/firestore";
+import React from "react";
 
 
-function ShowsGame({gameId}) {
-    const [game, setGame] = useState(undefined)
-
-    useEffect(() => {
-        return onSnapshot(doc(db, "games", gameId), (doc) => {
-            let game = doc.data();
-            game.id = doc.id;
-            setGame(game);
-        });
-    }, [game && game.id])
-
+function ShowsGame({game}) {
     if (!game) {
         return null
     }
