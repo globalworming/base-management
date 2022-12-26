@@ -1,16 +1,16 @@
 {
   "main.css": "/base-management/static/css/main.c9ef5c4d.chunk.css",
-  "main.js": "/base-management/static/js/main.64c5c5bd.chunk.js",
-  "main.js.map": "/base-management/static/js/main.64c5c5bd.chunk.js.map",
+  "main.js": "/base-management/static/js/main.2170ae2f.chunk.js",
+  "main.js.map": "/base-management/static/js/main.2170ae2f.chunk.js.map",
   "static/js/1.d2fd5e86.chunk.js": "/base-management/static/js/1.d2fd5e86.chunk.js",
   "static/js/1.d2fd5e86.chunk.js.map": "/base-management/static/js/1.d2fd5e86.chunk.js.map",
-  "static/js/2.5300bc02.chunk.js": "/base-management/static/js/2.5300bc02.chunk.js",
-  "static/js/2.5300bc02.chunk.js.map": "/base-management/static/js/2.5300bc02.chunk.js.map",
+  "static/js/2.68c037c0.chunk.js": "/base-management/static/js/2.68c037c0.chunk.js",
+  "static/js/2.68c037c0.chunk.js.map": "/base-management/static/js/2.68c037c0.chunk.js.map",
   "runtime~main.js": "/base-management/static/js/runtime~main.ca12daf9.js",
   "runtime~main.js.map": "/base-management/static/js/runtime~main.ca12daf9.js.map",
   "static/media/catastrophe.csv": "/base-management/static/media/catastrophe.bae2463f.csv",
   "static/css/main.c9ef5c4d.chunk.css.map": "/base-management/static/css/main.c9ef5c4d.chunk.css.map",
   "index.html": "/base-management/index.html",
-  "precache-manifest.a166144ab77e44dc5cd174c2065a4b56.js": "/base-management/precache-manifest.a166144ab77e44dc5cd174c2065a4b56.js",
+  "precache-manifest.2aa979c786770157fd434fd82d778e55.js": "/base-management/precache-manifest.2aa979c786770157fd434fd82d778e55.js",
   "service-worker.js": "/base-management/service-worker.js"
 }

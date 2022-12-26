@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Route, Routes,} from "react-router-dom";
 import Login from "./component/page/auth/Login";
 import Register from "./component/page/auth/Register";
@@ -7,9 +7,22 @@ import Reset from "./component/page/auth/Reset";
 import Dashboard from "./component/page/facilitate/Dashboard";
 import Play from "./component/page/play/Play";
 import Facilitate from "./component/page/facilitate/Facilitate";
+import {doc, onSnapshot} from "firebase/firestore";
+import {db} from "./config/firebaseConfig";
 
 
 function App() {
+    const [latestVersion, setLatestVersion ] = useState(undefined);
+    const thisVersion = process.env.REACT_APP_VERSION;
+    useEffect(() => {
+        return onSnapshot(doc(db, "meta", "version"), (doc) => {
+            setLatestVersion(doc.data().latest);
+        });
+    },[])
+
+    if (latestVersion && (thisVersion !== latestVersion)) {
+        return <p>new version, update required, please reload this page</p>
+    }
     return (
         <div className="App" style={{
             display: "flex",
