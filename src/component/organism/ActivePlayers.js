@@ -7,7 +7,7 @@ function ActivePlayers({players}) {
 
     return <><div>
         <h2>Players</h2>
-        {players.map(player => <p key={player.id}>{(Date.now() - player.heartbeat) < (35 * 1000)  ? '🟢': '🔴'}{player.name}</p>)}
+        {players.map(player => <p key={player.id}>{(Date.now() - player.heartbeat) < (60 * 1000)  ? '🟢': '🔴'}{player.name}</p>)}
     </div></>
 }
 

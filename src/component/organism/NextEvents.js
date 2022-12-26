@@ -2,16 +2,14 @@ import React, {useEffect, useState} from "react";
 import Scenarios from "../../domain/scenario";
 import {parse} from "papaparse";
 
-function NextEvents({scenarioId, game}) {
+function NextEvents({game}) {
     const [scenario, setScenario] = useState(undefined)
     const [nextEvents, setNextEvents] = useState([])
 
     useEffect(() => {
-        if (!game) {
-            return
-        }
+        if (!game) return
         setNextEvents([])
-        fetch(Scenarios[scenarioId])
+        fetch(Scenarios[game.scenario])
             .then(response => response.text())
             .then(responseText => {
                 setScenario(parse(responseText, {header: true}).data)

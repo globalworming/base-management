@@ -3,7 +3,7 @@ import Scenarios from "../../domain/scenario";
 import Events from "../../domain/event";
 import {parse} from "papaparse";
 
-function EventService({game}) {
+function useEventService(game) {
     const [scenario, setScenario] = useState(undefined)
 
     useEffect(() => {
@@ -13,7 +13,7 @@ function EventService({game}) {
             .then(responseText => {
                 setScenario(parse(responseText, {header: true}).data);
             });
-    }, [])
+    }, [game && game.scenario])
 
     async function handle(e) {
         await Events[e](game);
@@ -30,8 +30,8 @@ function EventService({game}) {
             }
         }
         handleEvents(events);
-    }, [game && game.hour, game && game.day])
+    }, [game && game.hour, game && game.day, scenario && scenario.length])
 
 }
 
-export default EventService;
+export default useEventService;

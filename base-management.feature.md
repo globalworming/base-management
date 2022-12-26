@@ -6,7 +6,7 @@ Because I was curious about the technical feasibility, I wanted to check a few t
   use [the catastrophe.csv](src/domain/scenario/catastrophe.csv) and check the specific events for the current day/hour.
   Proper spreadsheet support is also possible but csv plays nicer with git
 * can the game be "driven" by the facilitator application and a real time database: ✅ yes, the
-  [Phase Progression Service](src/component/service/PhaseProgressionService.js) keeps track of time, updates the games day and hour state, the [Event Service](src/component/service/EventService.js) checks the game day/hour and looks up and executes the events from the CSV, [Game Controls](src/component/organism/ProgressControls.js) can be used to start the game, the next day or play/pause  
+  [Phase Progression Service](src/component/service/PhaseProgressionServiceHook.js) keeps track of time, updates the games day and hour state, the [Event Service](src/component/service/EventServiceHook.js) checks the game day/hour and looks up and executes the events from the CSV, [Game Controls](src/component/organism/ProgressControls.js) can be used to start the game, the next day or play/pause  
 
 ## Feature: Works End-to-End
 To see it working, follow the steps. That's basically a test script that can be automated later 

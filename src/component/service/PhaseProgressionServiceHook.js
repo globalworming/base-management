@@ -3,7 +3,7 @@ import {db} from "../../config/firebaseConfig";
 import {doc, runTransaction} from "firebase/firestore";
 import {GameState} from "../../domain/state";
 
-function PhaseProgressionService({game}) {
+function usePhaseProgressionService(game) {
     const [phaseProgress, setPhaseProgress] = useState(undefined)
 
     useEffect(() => {
@@ -16,11 +16,14 @@ function PhaseProgressionService({game}) {
     useEffect(() => {
         if (!phaseProgress) return
         if (((phaseProgress * game.progressionRate) / (60 * 60)) > 1) {
-            if (game.hour < 23) {
-                hourTick()
-            } else {
-                nextDay()
+            const tick = async () => {
+                if (game.hour < 23) {
+                    await hourTick()
+                } else {
+                    await nextDay()
+                }
             }
+            tick().catch(console.error);
         }
     }, [phaseProgress])
 
@@ -37,8 +40,6 @@ function PhaseProgressionService({game}) {
             await transaction.update(gameDocRef, {state: GameState.PROGRESS_HALTED, phaseProgress: 0, hour: 0, day: ++game.day});
         });
     }
-
-    return null
 }
 
-export default PhaseProgressionService;
+export default usePhaseProgressionService;

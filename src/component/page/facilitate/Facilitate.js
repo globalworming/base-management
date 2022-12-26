@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth, db} from "../../../config/firebaseConfig";
+import {auth} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
-import {collection, doc, onSnapshot, query} from "firebase/firestore";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import ShowsScenario from "../../organism/debug/ShowsScenario";
 import ProgressControls from "../../organism/ProgressControls";
-import PhaseProgressionService from "../../service/PhaseProgressionService";
-import EventService from "../../service/EventService";
+import usePhaseProgressionService from "../../service/PhaseProgressionServiceHook";
+import useEventService from "../../service/EventServiceHook";
 import ActivePlayers from "../../organism/ActivePlayers";
 import NextEvents from "../../organism/NextEvents";
 import ShowsFacilitatorCharacters from "../../organism/ShowsFacilitatorCharacters";
@@ -22,6 +21,8 @@ function Facilitate() {
     const game = useGame(gameId)
     const players = usePlayers(gameId)
     const characters = useCharacters(gameId)
+    usePhaseProgressionService(game)
+    useEventService(game)
 
     if (loading || !game) {
         return null;
@@ -31,7 +32,7 @@ function Facilitate() {
         <h1 style={{width: "100%"}}>you are facilitating '{game.name}'</h1>
         <Panel>
             <ProgressControls game={game}/>
-            <NextEvents scenarioId={game.scenario} game={game}/>
+            <NextEvents game={game}/>
         </Panel>
         <Panel>
             <ActivePlayers players={players}/>
@@ -39,8 +40,6 @@ function Facilitate() {
         <Panel>
             <ShowsFacilitatorCharacters characters={characters}/>
         </Panel>
-        <PhaseProgressionService game={game}/>
-        <EventService game={game}/>
         <hr style={{width: "100%"}}/>
         <ShowsGame game={game}/>
         <hr style={{width: "100%"}}/>
