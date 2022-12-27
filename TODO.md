@@ -36,3 +36,4 @@
 - [ ] check security rules to ensure you cant mess with other peoples game data, though that's probably a minor issue
 - [ ] check firebase performance monitoring
 - [ ] how much will it cost to run a game? 10k games?
+- [ ] i18n? Accessibility? Project management? E2e serenity js? Component documentation with docz? Themes, patterns, stats over all games? Responsive? 
