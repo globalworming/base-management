@@ -1,6 +1,6 @@
 # TODO
 ## next:
-- [ ] refactor snapshot listeners, read count in firebase is getting ridiculous
+- [ ] progression service should use event service to make sure a next phase definitely triggers the events 
 
 ### as very basic funcions, mock and simulate where needed to go fast
 - [x] login
@@ -20,6 +20,7 @@
 ### some added niceties 
 - [X] show next events
 - [x] show active players, 30 second heartbeat, shows disconnected when 1 minute without heartbeat (TODO: take clock skew into account, use server time)
+- [x] refactor snapshot listeners, read count in firebase is getting ridiculous
 
 ### editor convenience
 - [ ] load all scenarios and sanity check
