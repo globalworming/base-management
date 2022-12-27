@@ -4,3 +4,4 @@
 1.5h "presence" indicator, display next events for facilitator
 2h setting activities
 1.5h refactor snapshot listeners, ask for page reload on release new version
+2h research documentation tools 
