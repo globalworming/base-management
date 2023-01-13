@@ -2,21 +2,21 @@ import {initializeApp} from "firebase/app";
 import {
     createUserWithEmailAndPassword,
     getAuth,
+    onAuthStateChanged,
     sendPasswordResetEmail,
     signInAnonymously,
     signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
+    signOut
 } from "firebase/auth";
 import {getFirestore,} from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB_SloIsra4v8TKFW-VCGBpthntRo6UHC0",
+    apiKey: "AIzaSyCKNz8jJd05uRq8LrSWFtcDhRypzhttMpM",
     authDomain: "base-management-a75c5.firebaseapp.com",
     projectId: "base-management-a75c5",
     storageBucket: "base-management-a75c5.appspot.com",
     messagingSenderId: "304382252775",
-    appId: "1:304382252775:web:bdf71053e524ae70aff442"
+    appId: "1:304382252775:web:db276970be1ff39baff442"
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
