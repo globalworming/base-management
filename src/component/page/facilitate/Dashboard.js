@@ -74,7 +74,7 @@ function Dashboard() {
 
     return (<>
         <h1 style={{width: "100%"}}>Welcome Facilitator</h1>
-        <button onClick={createGame}>
+        <button className={"create-game"} onClick={createGame}>
             create new game
         </button>
         <hr style={{width: "100%"}}/>
@@ -87,7 +87,7 @@ function Dashboard() {
                     <pre>{JSON.stringify(it, null, 2)}</pre>
                     <button onClick={() => navigate(`/facilitate/${it.id}`)}>continue</button>
                     <button onClick={() => copyTextToClipboard(inviteLink)}>copy invitation link</button>
-                    <input type="text" readOnly value={inviteLink}/>
+                    <input className={"invite-link"} type="text" readOnly value={inviteLink}/>
                     <button onClick={() => deleteGame(it.id)}>❌</button>
                 </div>
             })}

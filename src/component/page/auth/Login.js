@@ -38,7 +38,7 @@ const Login = () => {
                 >
                     Login
                 </button>
-                <button className="login__btn login__google" onClick={signInAsAnonymous}>
+                <button className="login-as-guest" onClick={signInAsAnonymous}>
                     Guest Login
                 </button>
                 <div>

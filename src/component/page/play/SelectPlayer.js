@@ -27,7 +27,7 @@ function SelectPlayer({game, players}) {
     }
 
     return <>
-        <form action="#" onSubmit={createPlayer}>
+        <form className={'create-player'} action="#" onSubmit={createPlayer}>
             <fieldset>
                 <legend>new player</legend>
                 <label htmlFor="name"> name
