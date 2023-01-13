@@ -12,16 +12,26 @@ import {db} from "./config/firebaseConfig";
 
 
 function App() {
-    const [latestVersion, setLatestVersion ] = useState(undefined);
+    const [latestVersion, setLatestVersion] = useState(undefined);
+    const [maintenanceMessage, setMaintenanceMessage] = useState(undefined);
     const thisVersion = process.env.REACT_APP_VERSION;
     useEffect(() => {
         return onSnapshot(doc(db, "meta", "version"), (doc) => {
             setLatestVersion(doc.data().latest);
         });
-    },[])
+    }, [])
+    useEffect(() => {
+        return onSnapshot(doc(db, "meta", "maintenance"), (doc) => {
+            setMaintenanceMessage(doc.data().message);
+        });
+    }, [])
 
     if (latestVersion && (thisVersion !== latestVersion)) {
         return <p>new version, update required, please reload this page</p>
+    }
+    if (maintenanceMessage) {
+        return <><p>downtime for maintenance</p>
+            <p>{maintenanceMessage}</p></>
     }
     return (
         <div className="App" style={{

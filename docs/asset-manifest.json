@@ -1,7 +1,7 @@
 {
   "main.css": "/base-management/static/css/main.c9ef5c4d.chunk.css",
-  "main.js": "/base-management/static/js/main.2170ae2f.chunk.js",
-  "main.js.map": "/base-management/static/js/main.2170ae2f.chunk.js.map",
+  "main.js": "/base-management/static/js/main.ce949ab1.chunk.js",
+  "main.js.map": "/base-management/static/js/main.ce949ab1.chunk.js.map",
   "static/js/1.d2fd5e86.chunk.js": "/base-management/static/js/1.d2fd5e86.chunk.js",
   "static/js/1.d2fd5e86.chunk.js.map": "/base-management/static/js/1.d2fd5e86.chunk.js.map",
   "static/js/2.68c037c0.chunk.js": "/base-management/static/js/2.68c037c0.chunk.js",
@@ -11,6 +11,6 @@
   "static/media/catastrophe.csv": "/base-management/static/media/catastrophe.bae2463f.csv",
   "static/css/main.c9ef5c4d.chunk.css.map": "/base-management/static/css/main.c9ef5c4d.chunk.css.map",
   "index.html": "/base-management/index.html",
-  "precache-manifest.2aa979c786770157fd434fd82d778e55.js": "/base-management/precache-manifest.2aa979c786770157fd434fd82d778e55.js",
+  "precache-manifest.b89710c36614fe1d21b4937bb4a3b162.js": "/base-management/precache-manifest.b89710c36614fe1d21b4937bb4a3b162.js",
   "service-worker.js": "/base-management/service-worker.js"
 }

@@ -1,10 +1,13 @@
 # TODO
+
 ## next:
-- [ ] progression service should use event service to make sure a next phase definitely triggers the events 
+
+- [ ] progression service should use event service to make sure a next phase definitely triggers the events
 
 ### as very basic funcions, mock and simulate where needed to go fast
+
 - [x] login
-- [x] create game, 
+- [x] create game,
 - [x] examples scenario
 - [x] copy invite
 - [x] one player joins
@@ -17,24 +20,33 @@
 - [x] fix hashrouter invite link on github pages
 - [X] create player automatically selects
 
-### some added niceties 
+### some added niceties
+
 - [X] show next events
-- [x] show active players, 30 second heartbeat, shows disconnected when 1 minute without heartbeat (TODO: take clock skew into account, use server time)
+- [x] show active players, 30 second heartbeat, shows disconnected when 1 minute without heartbeat (TODO: take clock
+  skew into account, use server time)
 - [x] refactor snapshot listeners, read count in firebase is getting ridiculous
 
 ### editor convenience
+
 - [ ] load all scenarios and sanity check
 - [ ] fully edit game state
 
 ### tech debt
+
 - [ ] refactor firebase listeners to single context providers
-- [ ] refactor centralize game control transactions 
+- [ ] refactor centralize game control transactions
 - [ ] no automated quality checks at all
 
 ### notes
+
 - [ ] do multi actor e2e test, check serenity js maybe
-- [x] check connected/disconnected https://firebase.google.com/docs/database/web/offline-capabilities ❌ there is a solution involving real time database, not needed yet
+- [x] check connected/disconnected https://firebase.google.com/docs/database/web/offline-capabilities ❌ there is a
+  solution involving real time database, not needed yet
 - [ ] check security rules to ensure you cant mess with other peoples game data, though that's probably a minor issue
 - [ ] check firebase performance monitoring
 - [ ] how much will it cost to run a game? 10k games?
-- [ ] i18n? Accessibility? Project management? E2e serenity js? Component documentation with docz? Themes, patterns, stats over all games? Responsive? 
+- [ ] i18n? Accessibility? Project management? E2e serenity js? Component documentation with docz? Themes, patterns,
+  stats over all games? Responsive?
+- [ ] unnecessary git diffs when building might be alleviated by renaming
+  files? https://github.com/facebook/create-react-app/issues/821#issuecomment-306900549
