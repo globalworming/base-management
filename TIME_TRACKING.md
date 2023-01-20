@@ -6,4 +6,5 @@ use csv data, start/stop progress, progression service, progression rate, event 
 2h setting activities  
 1.5h refactor snapshot listeners, ask for page reload on release new version  
 2h research documentation tools  
-0.25 maintainance message  
+0.25h maintenance message
+2h firebase access rules, more scenarios, more events

@@ -2,13 +2,14 @@ import React, {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useNavigate} from "react-router-dom";
 import {auth, db} from "../../../config/firebaseConfig";
-import {addDoc, collection, doc, onSnapshot, query, where, writeBatch, deleteDoc} from "firebase/firestore";
+import {addDoc, collection, deleteDoc, doc, onSnapshot, query, where, writeBatch} from "firebase/firestore";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
-import {GameState} from "../../../domain/state";
+import {GameProgressionState} from "../../../domain/GameProgressionState";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
     const [games, setGames] = useState([]);
+    const [scenario, setScenario] = useState("fastEndOfDay");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,18 +30,19 @@ function Dashboard() {
         if (!user) return navigate("/");
     }, [user, loading]);
 
-    const createGame = async () => {
+    const createGame = async (e) => {
+        e.preventDefault();
         const gameDocRef = await addDoc(collection(db, "games"), {
             name: "some game " + Date.now(),
             facilitator: user.uid,
-            state: GameState.CREATED,
-            scenario: "catastrophe",
+            state: GameProgressionState.CREATED,
+            scenario,
             // 96 to have 24 hours in 15 minutes
             //progressionRate: 96,
             // two hours per second
             progressionRate: 7200,
             day: 1,
-            hour: 0,
+            hour: -1,
             activeEvents: [],
             phaseProgress: 0
         });
@@ -74,9 +76,22 @@ function Dashboard() {
 
     return (<>
         <h1 style={{width: "100%"}}>Welcome Facilitator</h1>
-        <button className={"create-game"} onClick={createGame}>
-            create new game
-        </button>
+        <form style={{display: "flex", gap: "5px"}} onSubmit={createGame}>
+            <label style={{display: "flex", gap: "5px"}}>
+                scenario:
+                <select defaultValue="fastEndOfDay" onChange={(e) => {
+                    setScenario(e.target.value)
+                }}>
+                    { // FIXME refactor DRY
+                    }
+                    <option value={"fastEndOfDay"}>fast end of day</option>
+                    <option value={"catastrophe"}>catastrophe</option>
+                </select>
+            </label>
+            <button className={"create-game"} type="submit">
+                create new game
+            </button>
+        </form>
         <hr style={{width: "100%"}}/>
         <div>
             <h2>Games in progress</h2>

@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {db} from "../../config/firebaseConfig";
 import {doc, runTransaction} from "firebase/firestore";
-import {GameState} from "../../domain/state";
+import {GameProgressionState} from "../../domain/GameProgressionState";
 
 function Facilitate({game}) {
     const [phaseProgress, setPhaseProgress] = useState(0)
 
     useEffect(() => {
-        if (!game || game.state !== GameState.PROGRESSING) return
+        if (!game || game.state !== GameProgressionState.PROGRESSING) return
 
         const alreadyProgressed = game.phaseProgress ? game.phaseProgress : 0;
         setPhaseProgress(+((Date.now() - game.progressStarted) / 1000) + alreadyProgressed)
@@ -23,22 +23,49 @@ function Facilitate({game}) {
     async function pause() {
         const gameDocRef = doc(db, "games", game.id);
         await runTransaction(db, async (transaction) => {
-            await transaction.update(gameDocRef, {state: GameState.PROGRESS_HALTED, phaseProgress: +phaseProgress});
+            await transaction.update(gameDocRef, {
+                state: GameProgressionState.PROGRESS_HALTED,
+                phaseProgress: +phaseProgress
+            });
         });
     }
 
     async function continueGame() {
         const gameDocRef = doc(db, "games", game.id);
         await runTransaction(db, async (transaction) => {
-            await transaction.update(gameDocRef, {state: GameState.PROGRESSING, progressStarted: Date.now()});
+            await transaction.update(gameDocRef, {
+                state: GameProgressionState.PROGRESSING,
+                progressStarted: Date.now()
+            });
+        });
+    }
+
+    async function decrement() {
+        const gameDocRef = doc(db, "games", game.id);
+        await runTransaction(db, async (transaction) => {
+            await transaction.update(gameDocRef, {
+                hour: --game.hour,
+            });
+        });
+    }
+
+    async function toStart() {
+        const gameDocRef = doc(db, "games", game.id);
+        await runTransaction(db, async (transaction) => {
+            await transaction.update(gameDocRef, {
+                hour: -1,
+                day: 1,
+            });
         });
     }
 
     return <>
-        <button disabled={game.state === GameState.PROGRESSING} onClick={continueGame}>▶️</button>
-        <button disabled={game.state !== GameState.PROGRESSING} onClick={pause}>⏸</button>
+        <button onClick={toStart}>⏮</button>
+        <button onClick={decrement}>⏪</button>
+        <button disabled={game.state === GameProgressionState.PROGRESSING} onClick={continueGame}>▶️</button>
+        <button disabled={game.state !== GameProgressionState.PROGRESSING} onClick={pause}>⏸</button>
         <input type="text" readOnly
-               value={`Day ${game.day} - ${game.hour.toString().padStart(2, "0")}:${((game.progressionRate * phaseProgress / 60) % 60).toFixed(0).padStart(2, "0")}`}/>
+               value={`Day ${game.day} - ${Math.max(0, game.hour).toString().padStart(2, "0")}:${((game.progressionRate * phaseProgress / 60) % 60).toFixed(0).padStart(2, "0")}`}/>
     </>
 }
 

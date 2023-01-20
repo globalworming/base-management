@@ -1,0 +1,6 @@
+export const GameProgressionState = {
+    CREATED: "CREATED",
+    PROGRESSING: "PROGRESSING",
+    PROGRESS_HALTED: "PROGRESS_HALTED",
+    DAY_ENDED: "DAY_ENDED"
+}

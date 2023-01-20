@@ -1,5 +1,0 @@
-export const GameState = {
-    CREATED: "CREATED",
-    PROGRESSING: "PROGRESSING",
-    PROGRESS_HALTED: "PROGRESS_HALTED"
-}

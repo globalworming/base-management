@@ -11,12 +11,12 @@ import {
 import {getFirestore,} from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCKNz8jJd05uRq8LrSWFtcDhRypzhttMpM",
+    apiKey: "AIzaSyCxZcqGcnkCuQuoWgxWbEig2ovo563nUbg",
     authDomain: "base-management-a75c5.firebaseapp.com",
     projectId: "base-management-a75c5",
     storageBucket: "base-management-a75c5.appspot.com",
     messagingSenderId: "304382252775",
-    appId: "1:304382252775:web:db276970be1ff39baff442"
+    appId: "1:304382252775:web:69bf1aea1d126609aff442"
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {

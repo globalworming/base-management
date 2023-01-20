@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {doc, runTransaction} from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
+import DefaultActivities from "../../domain/CharacterActivities";
 
 function ControlCharacters({game, characters}) {
     const [mapCharacterToActivity, setMapCharacterToActivity] = useState(new Map())
@@ -42,9 +43,9 @@ function ControlCharacters({game, characters}) {
                         mapCharacterToActivity.set(character, e.target.value);
                         return setMapCharacterToActivity(new Map([...mapCharacterToActivity]))
                     }}>
-                        <option value="">unassigned</option>
-                        <option value="smeltWater">Smelt Water</option>
-                        <option value="visitSickBay">Visit Sickbay</option>
+                        {DefaultActivities.map(activity => <option key={activity}
+                                                                   value={activity}>{activity}</option>
+                        )}
                     </select>
                 </label>
                 <input disabled={mapCharacterToActivity.get(character) === character.activity} type="submit"
