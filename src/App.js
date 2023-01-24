@@ -39,7 +39,8 @@ function App() {
             flexFlow: "row wrap",
             justifyContent: "flex-start",
             alignItems: "stretch",
-            gap: "1%"
+            gap: "1%",
+            position: "relative"
         }}>
             <Routes>
                 <Route exact path="/" element={<Login/>}/>

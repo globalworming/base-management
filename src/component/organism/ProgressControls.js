@@ -2,8 +2,9 @@ import React, {useEffect, useState} from "react";
 import {db} from "../../config/firebaseConfig";
 import {doc, runTransaction} from "firebase/firestore";
 import {GameProgressionState} from "../../domain/GameProgressionState";
+import {recreateGame} from "../../persistence";
 
-function Facilitate({game}) {
+function ProgressControl({game}) {
     const [tickProgress, setTickProgress] = useState(0)
 
     useEffect(() => {
@@ -59,7 +60,12 @@ function Facilitate({game}) {
         });
     }
 
+    async function recreate() {
+        await recreateGame(game)
+    }
+
     return <>
+        <button onClick={recreate}>🔁</button>
         <button onClick={toStart}>⏮</button>
         <button onClick={decrement}>⏪</button>
         <button disabled={game.state === GameProgressionState.PROGRESSING} onClick={continueGame}>▶️</button>
@@ -69,4 +75,4 @@ function Facilitate({game}) {
     </>
 }
 
-export default Facilitate;
+export default ProgressControl;

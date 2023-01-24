@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useNavigate} from "react-router-dom";
 import {auth, db} from "../../../config/firebaseConfig";
-import {addDoc, collection, deleteDoc, doc, onSnapshot, query, where, writeBatch} from "firebase/firestore";
+import {collection, deleteDoc, doc, onSnapshot, query, where} from "firebase/firestore";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
-import {GameProgressionState} from "../../../domain/GameProgressionState";
+import {createNewGame} from "../../../persistence";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
@@ -30,36 +30,6 @@ function Dashboard() {
         if (!user) return navigate("/");
     }, [user, loading]);
 
-    const createGame = async (e) => {
-        e.preventDefault();
-        const gameDocRef = await addDoc(collection(db, "games"), {
-            name: "some game " + Date.now(),
-            facilitator: user.uid,
-            state: GameProgressionState.CREATED,
-            scenario,
-            // 96 to have 24 hours in 15 minutes
-            //progressionRate: 96,
-            // two hours per second
-            progressionRate: 7200,
-            day: 1,
-            hour: -1,
-            activeEvents: [],
-            tickProgress: 0
-        });
-
-        const batch = writeBatch(db);
-        const characters = [
-            {name: "Yumi Chatea", health: 100, activity: ""},
-            {name: "Zoe Müller", health: 100, activity: ""},
-            {name: "Maxis Gavranovic", health: 100, activity: ""},
-        ]
-        characters.forEach(character => {
-            const characterDocRef = doc(collection(db, "games", gameDocRef.id, "characters"));
-            batch.set(characterDocRef, character);
-        })
-        await batch.commit();
-    };
-
     async function deleteGame(id) {
         // TODO does not delete subcollections, use clean up job deleting orphaned subcollections
         await deleteDoc(doc(db, "games", id));
@@ -76,7 +46,10 @@ function Dashboard() {
 
     return (<>
         <h1 style={{width: "100%"}}>Welcome Facilitator</h1>
-        <form style={{display: "flex", gap: "5px"}} onSubmit={createGame}>
+        <form style={{display: "flex", gap: "5px"}} onSubmit={(e) => {
+            e.preventDefault();
+            createNewGame(user, scenario)
+        }}>
             <label style={{display: "flex", gap: "5px"}}>
                 scenario:
                 <select defaultValue="fastEndOfDay" onChange={(e) => {

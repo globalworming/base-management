@@ -1,39 +1,27 @@
 import React, {useEffect, useState} from "react";
-import Scenarios from "../../domain/scenario";
-import {parse} from "papaparse";
 
-function NextEvents({game}) {
-    const [scenario, setScenario] = useState(undefined)
-    const [nextEvents, setNextEvents] = useState([])
+function NextEvents({game, events}) {
+    const [nextEvents, setNextEvents] = useState(undefined)
 
     useEffect(() => {
-        if (!game) return
-        setNextEvents([])
-        fetch(Scenarios[game.scenario])
-            .then(response => response.text())
-            .then(responseText => {
-                setScenario(parse(responseText, {header: true}).data)
-            });
-    }, [game && game.id])
-
-    useEffect(() => {
-        if (!game || !scenario || scenario.length <= 0) {
+        if (!game || !events || events.length <= 0) {
             return
         }
-        const first = scenario
+        const today = events
             .filter(e => !!e.event)
-            .filter(e => e.day >= game.day)
-            .filter(e => e.hour > game.hour)[0];
-        if (!first) return
-        setNextEvents(scenario
+            .filter(e => e.day === game.day)
+            .filter(e => e.hour > game.hour) || [];
+        const nextDays = events
             .filter(e => !!e.event)
-            .filter(e => e.day >= first.day)
-            .filter(e => e.hour >= first.hour)
+            .filter(e => e.day > game.day) || []
+        const next = [...today, ...nextDays]
+        if (!next || next.length === 0) return
+        setNextEvents(next
             .slice(0, 10))
-    }, [scenario && scenario.length, game && game.hour])
+    }, [events && events.length, game && game.hour])
 
 
-    if (!game) {
+    if (!game || !events || !nextEvents) {
         return null
     }
     return <>

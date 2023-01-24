@@ -29,7 +29,6 @@ function useProgressionService(game, characters) {
     }, [tickProgress])
 
     async function hourTick() {
-        // FIXME call EventService here else some events may be skipped
         const gameDocRef = doc(db, "games", game.id);
         await runTransaction(db, async (transaction) => {
             await transaction.update(gameDocRef, {tickProgress: 0, hour: ++game.hour, progressStarted: Date.now()});

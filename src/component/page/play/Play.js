@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, db, signInAsAnonymous} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
-import {collection, doc, onSnapshot, query, runTransaction} from "firebase/firestore";
+import {doc, runTransaction} from "firebase/firestore";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
 import ControlCharacters from "../../organism/ControlCharacters";
 import Panel from "../../atom/Panel";
 import {useCharacters, useGame, usePlayers} from "../../../persistence";
+import GameOver from "../../atom/GameOver";
 
 function Play() {
     const {gameId} = useParams();
@@ -46,8 +47,8 @@ function Play() {
         return <SelectPlayer game={game} players={players}/>
     }
 
-    return <><h1 style={{width: "100%"}}>you are playing '{game.name}' as
-        '{selectedPlayer.name}'</h1>
+    return <>
+        <GameOver game={game}/>
         <Panel>
             <ControlCharacters characters={characters} game={game}></ControlCharacters>
         </Panel>
