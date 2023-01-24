@@ -6,7 +6,7 @@ async function JumpTicks(game, amount) {
     await runTransaction(db, async (transaction) => {
         console.log("jump to hour " + (game.hour + +amount))
         await transaction.update(gameDocRef, {
-            phaseProgress: 0,
+            tickProgress: 0,
             hour: game.hour + +amount,
             progressStarted: Date.now()
         });

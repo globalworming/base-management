@@ -44,7 +44,7 @@ function Dashboard() {
             day: 1,
             hour: -1,
             activeEvents: [],
-            phaseProgress: 0
+            tickProgress: 0
         });
 
         const batch = writeBatch(db);

@@ -7,7 +7,7 @@ import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import ShowsScenario from "../../organism/debug/ShowsScenario";
 import ProgressControls from "../../organism/ProgressControls";
-import usePhaseProgressionService from "../../service/PhaseProgressionServiceHook";
+import useProgressionService from "../../service/ProgressionServiceHook";
 import useEventService from "../../service/EventServiceHook";
 import ActivePlayers from "../../organism/ActivePlayers";
 import NextEvents from "../../organism/NextEvents";
@@ -21,7 +21,7 @@ function Facilitate() {
     const game = useGame(gameId)
     const players = usePlayers(gameId)
     const characters = useCharacters(gameId)
-    usePhaseProgressionService(game)
+    useProgressionService(game)
     useEventService(game)
 
     if (loading || !game) {

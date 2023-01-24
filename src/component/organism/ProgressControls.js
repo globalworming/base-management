@@ -4,14 +4,14 @@ import {doc, runTransaction} from "firebase/firestore";
 import {GameProgressionState} from "../../domain/GameProgressionState";
 
 function Facilitate({game}) {
-    const [phaseProgress, setPhaseProgress] = useState(0)
+    const [tickProgress, setTickProgress] = useState(0)
 
     useEffect(() => {
         if (!game || game.state !== GameProgressionState.PROGRESSING) return
 
-        const alreadyProgressed = game.phaseProgress ? game.phaseProgress : 0;
-        setPhaseProgress(+((Date.now() - game.progressStarted) / 1000) + alreadyProgressed)
-        const interval = setInterval(() => setPhaseProgress(+((Date.now() - game.progressStarted) / 1000) + alreadyProgressed), 100);
+        const alreadyProgressed = game.tickProgress ? game.tickProgress : 0;
+        setTickProgress(+((Date.now() - game.progressStarted) / 1000) + alreadyProgressed)
+        const interval = setInterval(() => setTickProgress(+((Date.now() - game.progressStarted) / 1000) + alreadyProgressed), 100);
         return () => clearInterval(interval);
     }, [game && game.state, game && game.progressStarted])
 
@@ -25,7 +25,7 @@ function Facilitate({game}) {
         await runTransaction(db, async (transaction) => {
             await transaction.update(gameDocRef, {
                 state: GameProgressionState.PROGRESS_HALTED,
-                phaseProgress: +phaseProgress
+                tickProgress: +tickProgress
             });
         });
     }
@@ -65,7 +65,7 @@ function Facilitate({game}) {
         <button disabled={game.state === GameProgressionState.PROGRESSING} onClick={continueGame}>▶️</button>
         <button disabled={game.state !== GameProgressionState.PROGRESSING} onClick={pause}>⏸</button>
         <input type="text" readOnly
-               value={`Day ${game.day} - ${Math.max(0, game.hour).toString().padStart(2, "0")}:${((game.progressionRate * phaseProgress / 60) % 60).toFixed(0).padStart(2, "0")}`}/>
+               value={`Day ${game.day} - ${Math.max(0, game.hour).toString().padStart(2, "0")}:${((game.progressionRate * tickProgress / 60) % 60).toFixed(0).padStart(2, "0")}`}/>
     </>
 }
 

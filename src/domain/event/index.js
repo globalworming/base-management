@@ -3,6 +3,7 @@ import ProgressionSpeedNormal from "./ProgressionSpeedNormal";
 import ProgressionSpeedFast from "./ProgressionSpeedFast";
 import HaltProgression from "./HaltProgression";
 import JumpTicks from "./JumpTicks";
+import ScenarioEnds from "./ScenarioEnds";
 
 export default {
     FireInSmelter,
@@ -10,4 +11,5 @@ export default {
     JumpTicks,
     ProgressionSpeedNormal,
     ProgressionSpeedFast,
+    ScenarioEnds
 };
