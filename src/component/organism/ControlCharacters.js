@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {doc, runTransaction} from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
-import DefaultActivities from "../../domain/CharacterActivities";
+import {DefaultActivities} from "../../domain/CharacterActivities";
 
 function ControlCharacters({game, characters}) {
     const [mapCharacterToActivity, setMapCharacterToActivity] = useState(new Map())

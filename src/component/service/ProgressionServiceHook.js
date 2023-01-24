@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {db} from "../../config/firebaseConfig";
-import {doc, runTransaction} from "firebase/firestore";
+import {doc, runTransaction, writeBatch} from "firebase/firestore";
 import {GameProgressionState} from "../../domain/GameProgressionState";
+import CharacterActivities from "../../domain/CharacterActivities";
 
-function useProgressionService(game) {
+function useProgressionService(game, characters) {
     const [tickProgress, setTickProgress] = useState(undefined)
 
     useEffect(() => {
@@ -36,17 +37,47 @@ function useProgressionService(game) {
     }
 
     async function dayEnds() {
+        const {nextGame, nextCharacters} = next(game, characters)
         const gameDocRef = doc(db, "games", game.id);
-        await runTransaction(db, async (transaction) => {
-            await transaction.update(gameDocRef, {
-                state: GameProgressionState.DAY_ENDED,
-                tickProgress: 0,
-                hour: 0,
-                day: ++game.day
-            });
-        });
-        // FIXME call end of day events here
+        const batch = writeBatch(db);
+        batch.set(gameDocRef, nextGame)
+        for (const character of nextCharacters) {
+            const characterDocRef = doc(db, "games", game.id, "characters", character.id);
+            batch.set(characterDocRef, character)
+        }
+
+        await batch.commit();
     }
+}
+
+function next(game, characters) {
+    const nextGame = Object.assign({}, game)
+    const nextCharacters = characters.map(c => Object.assign({}, c))
+    Object.assign(nextGame, {
+        state: GameProgressionState.DAY_ENDED,
+        tickProgress: 0,
+        hour: 0,
+        day: ++nextGame.day
+    })
+
+    function handleActivities() {
+        for (const nextCharacter of nextCharacters) {
+            if (nextCharacter.activity === CharacterActivities.SMELT_WATER) {
+                nextCharacter.health -= 66;
+            }
+        }
+    }
+
+    function handleFailureCondition() {
+        if (nextCharacters.filter(c => c.health <= 0)) {
+            nextGame.state = GameProgressionState.SCENARIO_ENDED
+            nextGame.gameOver = "people have died"
+        }
+    }
+
+    handleActivities()
+    handleFailureCondition()
+    return {nextGame, nextCharacters}
 }
 
 export default useProgressionService;
