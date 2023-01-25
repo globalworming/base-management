@@ -1,4 +1,5 @@
-import './App.css';
+import './normalize.css';
+import './border-box.css';
 import React, {useEffect, useState} from 'react';
 import {Route, Routes,} from "react-router-dom";
 import Login from "./component/page/auth/Login";
@@ -40,7 +41,8 @@ function App() {
             justifyContent: "flex-start",
             alignItems: "stretch",
             gap: "1%",
-            position: "relative"
+            position: "relative",
+            overflow: "hidden"
         }}>
             <Routes>
                 <Route exact path="/" element={<Login/>}/>
