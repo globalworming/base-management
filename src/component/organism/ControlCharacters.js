@@ -9,7 +9,6 @@ function ControlCharacters({game, characters}) {
     }
 
     return <>
-        <h2>Crew</h2>
         <Panel style={{
             width: "100%",
             display: "flex",

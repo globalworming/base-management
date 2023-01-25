@@ -40,7 +40,6 @@ function App() {
             flexFlow: "row wrap",
             justifyContent: "flex-start",
             alignItems: "stretch",
-            gap: "1%",
             position: "relative",
             overflow: "hidden"
         }}>

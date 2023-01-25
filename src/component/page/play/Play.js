@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {auth, signInAsAnonymous} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
@@ -10,6 +10,8 @@ import ControlCharacters from "../../organism/ControlCharacters";
 import Panel from "../../atom/Panel";
 import {useCharacters, useGame, usePlayers} from "../../../persistence";
 import GameOver from "../../atom/GameOver";
+import Map from "../../atom/Map";
+import SelectView from "../../organism/SelectView";
 
 function Play() {
     const {gameId} = useParams();
@@ -20,7 +22,7 @@ function Play() {
     const selectedPlayer = players && user && players.find((player) => player.controlledBy === user.uid);
     // FIXME turned off for the moment
     // useHeartbeat(game, selectedPlayer)
-
+    const [focusView, setFocusView] = useState(Views.MAP);
 
     if (!loading && user === null) {
         signInAsAnonymous()
@@ -36,16 +38,19 @@ function Play() {
 
     return <>
         <GameOver game={game}/>
+        <SelectView focusView={focusView} setFocusView={setFocusView}/>
         <Panel style={{
             display: "flex",
             flexDirection: "row",
             flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "stretch",
-            width: "100%"
+            width: "90%"
         }}>
-            <ControlCharacters characters={characters} game={game}></ControlCharacters>
+            {focusView === Views.CREW && <ControlCharacters characters={characters} game={game}></ControlCharacters>}
+            {focusView === Views.MAP && <Map game={game}></Map>}
         </Panel>
+
         {game.activeEvents.find(e => e === "FIRE_IN_SMELTER") && <h2>🔥🔥🔥 Your smelter is on fire, better hurry 🔥🔥🔥</h2>}
         <hr style={{width: "100%"}}/>
         <ShowsGame game={game}/>
@@ -54,6 +59,11 @@ function Play() {
         <hr style={{width: "100%"}}/>
         <ShowsAuth/>
     </>
+}
+
+export const Views = {
+    MAP: "MAP",
+    CREW: "CREW"
 }
 
 export default Play;
