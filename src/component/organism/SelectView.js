@@ -6,7 +6,7 @@ const SelectView = ({focusView, setFocusView}) => <Panel style={{
     display: "flex",
     flexDirection: "column",
     gap: "5px",
-    width: "9%"
+    width: "15%"
 }}>
     {
         Object.keys(Views).map(view => {

@@ -42,11 +42,16 @@ export const recreateGame = async (game) => {
     const batch = writeBatch(db);
     const gameDocRef = doc(db, "games", game.id);
     batch.set(gameDocRef, initialGame(game.facilitator, game.scenario))
-    const q = query(collection(db, "games", game.id, "characters"));
+    const queryCharacters = query(collection(db, "games", game.id, "characters"));
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
+    const charactersSnapshot = await getDocs(queryCharacters);
+    charactersSnapshot.forEach((doc) => {
         batch.delete(doc.ref)
+    });
+    const queryPlayers = query(collection(db, "games", game.id, "players"));
+    const playersSnapshot = await getDocs(queryPlayers);
+    playersSnapshot.forEach((doc) => {
+        batch.update(doc.ref, {messages: []})
     });
 
     createCrew(gameDocRef, batch);

@@ -5,6 +5,8 @@ import {auth, db} from "../../../config/firebaseConfig";
 import {collection, deleteDoc, doc, onSnapshot, query, where} from "firebase/firestore";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {createNewGame} from "../../../persistence";
+import Scenarios from "../../../domain/scenario";
+import Panel from "../../atom/Panel";
 
 function Dashboard() {
     const [user, loading, error] = useAuthState(auth);
@@ -55,10 +57,11 @@ function Dashboard() {
                 <select defaultValue="fastEndOfDay" onChange={(e) => {
                     setScenario(e.target.value)
                 }}>
-                    { // FIXME refactor DRY
+                    {
+                        Object.keys(Scenarios).map((key) => {
+                            return <option value={key} key={key}>{key}</option>;
+                        })
                     }
-                    <option value={"fastEndOfDay"}>fast end of day</option>
-                    <option value={"catastrophe"}>catastrophe</option>
                 </select>
             </label>
             <button className={"create-game"} type="submit">
@@ -71,13 +74,13 @@ function Dashboard() {
             {games.map(it => {
                 const inviteLink = window.location.href.split("/#")[0] + "/#/join/" + it.id;
 
-                return <div key={it.id}>
-                    <pre>{JSON.stringify(it, null, 2)}</pre>
+                return <Panel key={it.id}>
+                    <h1>{it.scenario}</h1> <h2>{it.name}</h2>
                     <button onClick={() => navigate(`/facilitate/${it.id}`)}>continue</button>
                     <button onClick={() => copyTextToClipboard(inviteLink)}>copy invitation link</button>
                     <input className={"invite-link"} type="text" readOnly value={inviteLink}/>
                     <button style={{display: "none"}} onClick={() => deleteGame(it.id)}>❌</button>
-                </div>
+                </Panel>
             })}
         </div>
         <hr style={{width: "100%"}}/>

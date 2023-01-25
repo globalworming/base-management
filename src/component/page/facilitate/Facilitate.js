@@ -23,7 +23,7 @@ function Facilitate() {
     const players = usePlayers(gameId)
     const characters = useCharacters(gameId)
     useProgressionService(game, characters)
-    useEventService(game, events)
+    useEventService(game, players, events)
 
     if (loading || !game) {
         return null;

@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import Events from "../../domain/event";
 
-function useEventService(game, scenario) {
+function useEventService(game, players, scenario) {
     async function handle(e) {
-        await Events[e.event](game, e.arg);
+        await Events[e.event](game, players, e.arg);
     }
 
     useEffect(() => {

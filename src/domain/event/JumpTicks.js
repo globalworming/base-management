@@ -1,7 +1,7 @@
 import {doc, runTransaction} from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
 
-async function JumpTicks(game, amount) {
+async function JumpTicks(game, players, amount) {
     const gameDocRef = doc(db, "games", game.id);
     await runTransaction(db, async (transaction) => {
         console.log("jump to hour " + (game.hour + +amount))

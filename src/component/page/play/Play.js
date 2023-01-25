@@ -12,6 +12,7 @@ import {useCharacters, useGame, usePlayers} from "../../../persistence";
 import GameOver from "../../atom/GameOver";
 import Map from "../../atom/Map";
 import SelectView from "../../organism/SelectView";
+import Messages from "../../organism/Messages";
 
 function Play() {
     const {gameId} = useParams();
@@ -44,11 +45,11 @@ function Play() {
             flexDirection: "row",
             flexWrap: "wrap",
             justifyContent: "space-between",
-            alignItems: "stretch",
-            width: "90%"
+            width: "85%"
         }}>
-            {focusView === Views.CREW && <ControlCharacters characters={characters} game={game}></ControlCharacters>}
-            {focusView === Views.MAP && <Map game={game}></Map>}
+            {focusView === Views.MAP && <Map game={game}/>}
+            {focusView === Views.CREW && <ControlCharacters characters={characters} game={game}/>}
+            {focusView === Views.MESSAGES && <Messages game={game} player={selectedPlayer}/>}
         </Panel>
 
         {game.activeEvents.find(e => e === "FIRE_IN_SMELTER") && <h2>🔥🔥🔥 Your smelter is on fire, better hurry 🔥🔥🔥</h2>}
@@ -63,7 +64,11 @@ function Play() {
 
 export const Views = {
     MAP: "MAP",
-    CREW: "CREW"
+    STATION: "STATION",
+    CREW: "CREW",
+    MESSAGES: "MESSAGES",
+    CHAT: "CHAT",
+    HANDBOOK: "HANDBOOK"
 }
 
 export default Play;

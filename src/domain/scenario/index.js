@@ -1,7 +1,10 @@
 import catastrophe from './catastrophe.csv';
 import fastEndOfDay from './fastEndOfDay.csv';
+import messages from './messages.csv';
 
-export default {
+let Scenarios = {
     catastrophe,
-    fastEndOfDay
+    fastEndOfDay,
+    messages
 };
+export default Scenarios;

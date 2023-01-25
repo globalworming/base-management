@@ -9,4 +9,5 @@ use csv data, start/stop progress, progression service, progression rate, event 
 0.25h maintenance message  
 2h firebase access rules, more scenarios, more events  
 1h more crew, crew display  
-0.5h select view, map placeholder
+0.5h select view, map placeholder  
+0.75h display some messages
