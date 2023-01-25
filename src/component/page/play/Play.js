@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {auth, db, signInAsAnonymous} from "../../../config/firebaseConfig";
+import {auth, signInAsAnonymous} from "../../../config/firebaseConfig";
 import ShowsAuth from "../../organism/debug/ShowsAuth";
 import {useParams} from "react-router-dom";
-import {doc, runTransaction} from "firebase/firestore";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
@@ -18,24 +17,10 @@ function Play() {
     const game = useGame(gameId)
     const players = usePlayers(gameId)
     const characters = useCharacters(gameId)
-
     const selectedPlayer = players && user && players.find((player) => player.controlledBy === user.uid);
+    // FIXME turned off for the moment
+    // useHeartbeat(game, selectedPlayer)
 
-
-    useEffect(() => {
-        if (!game || !selectedPlayer) return
-        // FIXME turned off for the moment
-        return;
-        const interval = setInterval(async () => {
-            const playerDocRef = doc(db, "games", game.id, "players", selectedPlayer.id);
-            await runTransaction(db, async (transaction) => {
-                await transaction.update(playerDocRef, {
-                    heartbeat: Date.now()
-                });
-            });
-        }, 30000);
-        return () => clearInterval(interval);
-    }, [game && game.id, selectedPlayer])
 
     if (!loading && user === null) {
         signInAsAnonymous()
