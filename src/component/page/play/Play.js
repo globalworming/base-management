@@ -24,6 +24,8 @@ function Play() {
 
     useEffect(() => {
         if (!game || !selectedPlayer) return
+        // FIXME turned off for the moment
+        return;
         const interval = setInterval(async () => {
             const playerDocRef = doc(db, "games", game.id, "players", selectedPlayer.id);
             await runTransaction(db, async (transaction) => {

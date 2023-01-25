@@ -4,6 +4,7 @@ import {db} from "./config/firebaseConfig";
 import Scenarios from "./domain/scenario";
 import {parse} from "papaparse";
 import {GameProgressionState} from "./domain/GameProgressionState";
+import Crew from "./domain/crew/Crew";
 
 function initialGame(uid, scenario) {
     return {
@@ -21,20 +22,19 @@ function initialGame(uid, scenario) {
     };
 }
 
-const initialCharacters = [
-    {name: "Yumi Chatea", health: 100, activity: ""},
-    {name: "Zoe Müller", health: 100, activity: ""},
-    {name: "Maxis Gavranovic", health: 100, activity: ""},
-]
+function createCrew(gameDocRef, batch) {
+    Crew.forEach(character => {
+        const characterDocRef = doc(collection(db, "games", gameDocRef.id, "characters"));
+        batch.set(characterDocRef, {...character});
+    })
+}
+
 
 export const createNewGame = async (user, scenario) => {
     const gameDocRef = await addDoc(collection(db, "games"), initialGame(user.uid, scenario));
 
     const batch = writeBatch(db);
-    initialCharacters.forEach(character => {
-        const characterDocRef = doc(collection(db, "games", gameDocRef.id, "characters"));
-        batch.set(characterDocRef, character);
-    })
+    createCrew(gameDocRef, batch);
     await batch.commit();
 }
 
@@ -49,10 +49,7 @@ export const recreateGame = async (game) => {
         batch.delete(doc.ref)
     });
 
-    initialCharacters.forEach(character => {
-        const characterDocRef = doc(collection(db, "games", gameDocRef.id, "characters"));
-        batch.set(characterDocRef, character);
-    })
+    createCrew(gameDocRef, batch);
     await batch.commit();
 }
 

@@ -14,7 +14,7 @@ function ShowsFacilitatorCharacters({characters}) {
             flexWrap: "nowrap",
             justifyContent: "space-between",
         }}>
-            <span>{character.name}</span> - <span>{character.activity.trim().length > 0 ? character.activity : "unassigned"}</span>
+            <span>{character.name}</span> - <span>{(character.activity || "").trim().length > 0 ? character.activity : "unassigned"}</span>
         </p>)}
     </>
 }

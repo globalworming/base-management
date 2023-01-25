@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import {doc, runTransaction} from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
 import Panel from "../atom/Panel";
+import CharacterAttributes from "../molecule/CharacterAttributes";
 
 const ControlCharacter = ({character, game}) => {
     const [localActivity, setLocalActivity] = useState(UNASSIGNED)
@@ -25,18 +26,19 @@ const ControlCharacter = ({character, game}) => {
         display: "flex",
         flexDirection: "column",
     }}>
-        <p><span>{character.name}</span>, health {character.health}</p>
-        <form style={{display: "flex", gap: "5px"}} onSubmit={(e) => setActivity(e, character)}>
-            <label style={{display: "flex", gap: "5px"}}>
+        <CharacterAttributes character={character}/>
+        <form style={{display: "flex", gap: "5px", flexDirection: "column"}}
+              onSubmit={(e) => setActivity(e, character)}>
+            <label htmlFor={"activity"} style={{flexBasis: "100%"}}>
                 activity:
-                <select value={localActivity} onChange={(e) => {
-                    setLocalActivity(e.target.value)
-                }}>
-                    {DefaultActivities.map(activity =>
-                        <option key={activity} value={activity}>{activity}</option>)}
-                </select>
             </label>
-            <input disabled={localActivity === character.activity} type="submit"
+            <select id={"activity"} style={{flex: "1 1 1"}} value={localActivity} onChange={(e) => {
+                setLocalActivity(e.target.value)
+            }}>
+                {DefaultActivities.map(activity =>
+                    <option key={activity} value={activity}>{activity}</option>)}
+            </select>
+            <input disabled={!localActivity || (localActivity === character.activity)} type="submit"
                    value="Assign"/>
         </form>
     </Panel>
