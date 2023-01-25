@@ -48,8 +48,15 @@ function Play() {
     }
 
     return <>
-        <GameOver game={game}/>
-        <Panel>
+        <Panel style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "stretch",
+            width: "100%"
+        }}>
+            <GameOver game={game}/>
             <ControlCharacters characters={characters} game={game}></ControlCharacters>
         </Panel>
         {game.activeEvents.find(e => e === "FIRE_IN_SMELTER") && <h2>🔥🔥🔥 Your smelter is on fire, better hurry 🔥🔥🔥</h2>}
