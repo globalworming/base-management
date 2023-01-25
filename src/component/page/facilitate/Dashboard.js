@@ -76,7 +76,7 @@ function Dashboard() {
                     <button onClick={() => navigate(`/facilitate/${it.id}`)}>continue</button>
                     <button onClick={() => copyTextToClipboard(inviteLink)}>copy invitation link</button>
                     <input className={"invite-link"} type="text" readOnly value={inviteLink}/>
-                    <button onClick={() => deleteGame(it.id)}>❌</button>
+                    <button style={{display: "none"}} onClick={() => deleteGame(it.id)}>❌</button>
                 </div>
             })}
         </div>
