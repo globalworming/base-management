@@ -8,8 +8,6 @@ function useEventService(game, players, scenario) {
 
     useEffect(() => {
         if (!game || !scenario || scenario.length <= 0) return;
-        console.log("scenario loaded, events: " + scenario.length)
-        console.log("hour", game.hour)
         if (scenario.length <= 0) return
         let events = scenario
             .filter(row => +row.day === game.day)
@@ -23,7 +21,6 @@ function useEventService(game, players, scenario) {
             });
 
         if (events.length === 0) return
-        console.log("events this hour: " + events.length)
 
         async function handleEvents(events) {
             for (const e of events) {
