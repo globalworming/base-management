@@ -4,7 +4,7 @@ import {doc, runTransaction, writeBatch} from "firebase/firestore";
 import {GameProgressionState} from "../../domain/GameProgressionState";
 import CharacterActivities from "../../domain/CharacterActivities";
 
-function useProgressionService(game, characters) {
+function useProgressionService(game, crew) {
     const [tickProgress, setTickProgress] = useState(undefined)
 
     useEffect(() => {
@@ -36,11 +36,11 @@ function useProgressionService(game, characters) {
     }
 
     async function dayEnds() {
-        const {nextGame, nextCharacters} = next(game, characters)
+        const {nextGame, nextCrew} = next(game, crew)
         const gameDocRef = doc(db, "games", game.id);
         const batch = writeBatch(db);
         batch.set(gameDocRef, nextGame)
-        for (const character of nextCharacters) {
+        for (const character of nextCrew) {
             const characterDocRef = doc(db, "games", game.id, "characters", character.id);
             batch.set(characterDocRef, character)
         }
@@ -49,9 +49,9 @@ function useProgressionService(game, characters) {
     }
 }
 
-function next(game, characters) {
+function next(game, crew) {
     const nextGame = Object.assign({}, game)
-    const nextCharacters = characters.map(c => Object.assign({}, c))
+    const nextCrew = crew.map(c => Object.assign({}, c))
     Object.assign(nextGame, {
         state: GameProgressionState.DAY_ENDED,
         tickProgress: 0,
@@ -60,7 +60,7 @@ function next(game, characters) {
     })
 
     function handleActivities() {
-        for (const nextCharacter of nextCharacters) {
+        for (const nextCharacter of nextCrew) {
             if (nextCharacter.activity === CharacterActivities.SMELT_WATER) {
                 nextCharacter.health -= 66;
             }
@@ -68,7 +68,7 @@ function next(game, characters) {
     }
 
     function handleFailureCondition() {
-        if (nextCharacters.filter(c => c.health <= 0)) {
+        if (nextCrew.filter(c => c.health <= 0)) {
             nextGame.state = GameProgressionState.SCENARIO_ENDED
             nextGame.gameOver = "people have died"
         }
@@ -76,7 +76,7 @@ function next(game, characters) {
 
     handleActivities()
     handleFailureCondition()
-    return {nextGame, nextCharacters}
+    return {nextGame, nextCrew}
 }
 
 export default useProgressionService;

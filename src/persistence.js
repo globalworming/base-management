@@ -23,9 +23,9 @@ function initialGame(uid, scenario) {
 }
 
 function createCrew(gameDocRef, batch) {
-    Crew.forEach(character => {
-        const characterDocRef = doc(collection(db, "games", gameDocRef.id, "characters"));
-        batch.set(characterDocRef, {...character});
+    Crew.forEach(crewMember => {
+        const crewMemberDocRef = doc(collection(db, "games", gameDocRef.id, "crew"));
+        batch.set(crewMemberDocRef, {...crewMember});
     })
 }
 
@@ -42,10 +42,10 @@ export const recreateGame = async (game) => {
     const batch = writeBatch(db);
     const gameDocRef = doc(db, "games", game.id);
     batch.set(gameDocRef, initialGame(game.facilitator, game.scenario))
-    const queryCharacters = query(collection(db, "games", game.id, "characters"));
+    const queryCrew = query(collection(db, "games", game.id, "crew"));
 
-    const charactersSnapshot = await getDocs(queryCharacters);
-    charactersSnapshot.forEach((doc) => {
+    const crewSnapshot = await getDocs(queryCrew);
+    crewSnapshot.forEach((doc) => {
         batch.delete(doc.ref)
     });
     const queryPlayers = query(collection(db, "games", game.id, "players"));
@@ -115,7 +115,7 @@ export const usePlayers = (gameId) => {
     return players
 }
 
-export const useCharacters = (gameId) => {
+export const useCrew = (gameId) => {
     const [characters, setCharacters] = useState(undefined)
 
     useEffect(() => {

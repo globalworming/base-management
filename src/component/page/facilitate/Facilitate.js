@@ -11,9 +11,9 @@ import useProgressionService from "../../service/ProgressionServiceHook";
 import useEventService from "../../service/EventServiceHook";
 import ActivePlayers from "../../organism/ActivePlayers";
 import NextEvents from "../../organism/NextEvents";
-import ShowsFacilitatorCharacters from "../../organism/ShowsFacilitatorCharacters";
+import ShowsFacilitatorCrew from "../../organism/ShowsFacilitatorCrew";
 import Panel from "../../atom/Panel";
-import {useCharacters, useGame, useGameEvents, usePlayers} from "../../../persistence";
+import {useCrew, useGame, useGameEvents, usePlayers} from "../../../persistence";
 
 function Facilitate() {
     const [user, loading, error] = useAuthState(auth);
@@ -21,9 +21,9 @@ function Facilitate() {
     const game = useGame(gameId)
     const events = useGameEvents(game)
     const players = usePlayers(gameId)
-    const characters = useCharacters(gameId)
-    useProgressionService(game, characters)
-    useEventService(game, players, events)
+    const crew = useCrew(gameId)
+    useProgressionService(game, crew)
+    useEventService(game, crew, players, events)
 
     if (loading || !game) {
         return null;
@@ -39,7 +39,7 @@ function Facilitate() {
             <ActivePlayers players={players}/>
         </Panel>
         <Panel>
-            <ShowsFacilitatorCharacters characters={characters}/>
+            <ShowsFacilitatorCrew characters={crew}/>
         </Panel>
         <hr style={{width: "100%"}}/>
         <ShowsGame game={game}/>

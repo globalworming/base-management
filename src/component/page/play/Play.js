@@ -8,7 +8,7 @@ import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
 import ControlCharacters from "../../organism/ControlCharacters";
 import Panel from "../../atom/Panel";
-import {useCharacters, useGame, usePlayers} from "../../../persistence";
+import {useCrew, useGame, usePlayers} from "../../../persistence";
 import GameOver from "../../atom/GameOver";
 import Map from "../../atom/Map";
 import SelectView from "../../organism/SelectView";
@@ -19,7 +19,7 @@ function Play() {
     const [user, loading, error] = useAuthState(auth);
     const game = useGame(gameId)
     const players = usePlayers(gameId)
-    const characters = useCharacters(gameId)
+    const crew = useCrew(gameId)
     const selectedPlayer = players && user && players.find((player) => player.controlledBy === user.uid);
     // FIXME turned off for the moment
     // useHeartbeat(game, selectedPlayer)
@@ -48,7 +48,7 @@ function Play() {
             width: "85%"
         }}>
             {focusView === Views.MAP && <Map game={game}/>}
-            {focusView === Views.CREW && <ControlCharacters characters={characters} game={game}/>}
+            {focusView === Views.CREW && <ControlCharacters crew={crew} game={game}/>}
             {focusView === Views.MESSAGES && <Messages game={game} player={selectedPlayer}/>}
         </Panel>
 

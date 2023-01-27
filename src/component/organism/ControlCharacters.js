@@ -2,9 +2,9 @@ import React from "react";
 import ControlCharacter from "./ControlCharacter";
 import Panel from "../atom/Panel";
 
-function ControlCharacters({game, characters}) {
+function ControlCharacters({game, crew}) {
 
-    if (characters === undefined || !game) {
+    if (crew === undefined || !game) {
         return null;
     }
 
@@ -18,7 +18,7 @@ function ControlCharacters({game, characters}) {
             alignItems: "stretch",
             justifyContent: "space-between",
         }}>
-            {characters.map(character => <ControlCharacter
+            {crew.map(character => <ControlCharacter
                 character={character}
                 game={game}
                 key={character.id}
