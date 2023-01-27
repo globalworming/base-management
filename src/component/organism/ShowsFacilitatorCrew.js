@@ -1,13 +1,13 @@
 import React from "react";
 
-function ShowsFacilitatorCrew({characters: crew}) {
+function ShowsFacilitatorCrew({crew}) {
 
     if (crew === undefined) {
         return null;
     }
 
     return <>
-        <h2>Character - Activity</h2>
+        <h2>Crew</h2>
         {crew.map(crewMember => <p key={crewMember.id} style={{
             display: "flex",
             flexDirection: "row",

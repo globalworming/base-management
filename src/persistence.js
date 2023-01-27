@@ -116,22 +116,22 @@ export const usePlayers = (gameId) => {
 }
 
 export const useCrew = (gameId) => {
-    const [characters, setCharacters] = useState(undefined)
+    const [crew, setCrew] = useState(undefined)
 
     useEffect(() => {
         if (!gameId) return
-        const q = query(collection(db, "games", gameId, "characters"));
+        const q = query(collection(db, "games", gameId, "crew"));
         return onSnapshot(q, (querySnapshot) => {
-            const characters = [];
+            const crew = [];
             querySnapshot.forEach((doc) => {
-                let character = doc.data();
-                character.id = doc.id
-                characters.push(character);
+                let crewMember = doc.data();
+                crewMember.id = doc.id
+                crew.push(crewMember);
             });
-            setCharacters(characters)
+            setCrew(crew)
         })
     }, [gameId])
 
-    return characters
+    return crew
 }
 

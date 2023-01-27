@@ -6,7 +6,7 @@ import {useParams} from "react-router-dom";
 import ShowsGame from "../../organism/debug/ShowsGame";
 import ShowsPlayers from "../../organism/debug/ShowsPlayers";
 import SelectPlayer from "./SelectPlayer";
-import ControlCharacters from "../../organism/ControlCharacters";
+import ControlCrew from "../../organism/ControlCrew";
 import Panel from "../../atom/Panel";
 import {useCrew, useGame, usePlayers} from "../../../persistence";
 import GameOver from "../../atom/GameOver";
@@ -48,7 +48,7 @@ function Play() {
             width: "85%"
         }}>
             {focusView === Views.MAP && <Map game={game}/>}
-            {focusView === Views.CREW && <ControlCharacters crew={crew} game={game}/>}
+            {focusView === Views.CREW && <ControlCrew crew={crew} game={game}/>}
             {focusView === Views.MESSAGES && <Messages game={game} player={selectedPlayer}/>}
         </Panel>
 

@@ -1,16 +1,19 @@
 {
-  "main.css": "/base-management/static/css/main.8db1e6fb.chunk.css",
-  "main.js": "/base-management/static/js/main.4f720fcb.chunk.js",
-  "main.js.map": "/base-management/static/js/main.4f720fcb.chunk.js.map",
-  "runtime~main.js": "/base-management/static/js/runtime~main.a1c29482.js",
-  "runtime~main.js.map": "/base-management/static/js/runtime~main.a1c29482.js.map",
-  "static/js/2.57af4a80.chunk.js": "/base-management/static/js/2.57af4a80.chunk.js",
-  "static/js/2.57af4a80.chunk.js.map": "/base-management/static/js/2.57af4a80.chunk.js.map",
-  "static/js/3.27fea2aa.chunk.js": "/base-management/static/js/3.27fea2aa.chunk.js",
-  "static/js/3.27fea2aa.chunk.js.map": "/base-management/static/js/3.27fea2aa.chunk.js.map",
-  "index.html": "/base-management/index.html",
-  "precache-manifest.a821245ba832e467a79fb3d929f2ef44.js": "/base-management/precache-manifest.a821245ba832e467a79fb3d929f2ef44.js",
-  "service-worker.js": "/base-management/service-worker.js",
-  "static/css/main.8db1e6fb.chunk.css.map": "/base-management/static/css/main.8db1e6fb.chunk.css.map",
-  "static/media/catastrophe.csv": "/base-management/static/media/catastrophe.bae2463f.csv"
+  "files": {
+    "main.css": "/base-management/static/css/main.d2cd2198.css",
+    "main.js": "/base-management/static/js/main.f8d36f79.js",
+    "static/js/787.1f5ec98d.chunk.js": "/base-management/static/js/787.1f5ec98d.chunk.js",
+    "static/media/mapImage.png": "/base-management/static/media/mapImage.e8367b9b4419529eaa79.png",
+    "static/media/messages.csv": "/base-management/static/media/messages.ae21f1893025ad7bbd0b.csv",
+    "index.html": "/base-management/index.html",
+    "static/media/catastrophe.csv": "/base-management/static/media/catastrophe.dca9fe5b9ba19a886a6b.csv",
+    "static/media/fastEndOfDay.csv": "/base-management/static/media/fastEndOfDay.1a07ccc24059d474fa5c.csv",
+    "main.d2cd2198.css.map": "/base-management/static/css/main.d2cd2198.css.map",
+    "main.f8d36f79.js.map": "/base-management/static/js/main.f8d36f79.js.map",
+    "787.1f5ec98d.chunk.js.map": "/base-management/static/js/787.1f5ec98d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d2cd2198.css",
+    "static/js/main.f8d36f79.js"
+  ]
 }

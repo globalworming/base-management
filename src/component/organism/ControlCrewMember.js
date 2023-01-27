@@ -1,22 +1,22 @@
-import {DefaultActivities, UNASSIGNED} from "../../domain/CharacterActivities";
+import {DefaultActivities, UNASSIGNED} from "../../domain/CrewActivities";
 import React, {useEffect, useState} from "react";
 import {doc, runTransaction} from "firebase/firestore";
 import {db} from "../../config/firebaseConfig";
 import Panel from "../atom/Panel";
-import CharacterAttributes from "../molecule/CharacterAttributes";
+import CrewMemberAttributes from "../molecule/CrewMemberAttributes";
 
-const ControlCharacter = ({character, game}) => {
+const ControlCrewMember = ({crewMember: crewMember, game}) => {
     const [localActivity, setLocalActivity] = useState(UNASSIGNED)
 
     useEffect(() => {
-        setLocalActivity(character.activity)
-    }, [character.activity])
+        setLocalActivity(crewMember.activity)
+    }, [crewMember.activity])
 
-    async function setActivity(e, character) {
+    async function setActivity(e, crewMember) {
         e.preventDefault()
-        const characterDocRef = doc(db, "games", game.id, "characters", character.id);
+        const crewMemberDocRef = doc(db, "games", game.id, "crew", crewMember.id);
         await runTransaction(db, async (transaction) => {
-            await transaction.update(characterDocRef, {
+            await transaction.update(crewMemberDocRef, {
                 activity: e.target[0].value
             });
         });
@@ -26,9 +26,9 @@ const ControlCharacter = ({character, game}) => {
         display: "flex",
         flexDirection: "column",
     }}>
-        <CharacterAttributes character={character}/>
+        <CrewMemberAttributes crewMember={crewMember}/>
         <form style={{display: "flex", gap: "5px", flexDirection: "column"}}
-              onSubmit={(e) => setActivity(e, character)}>
+              onSubmit={(e) => setActivity(e, crewMember)}>
             <label htmlFor={"activity"} style={{flexBasis: "100%"}}>
                 activity:
             </label>
@@ -38,10 +38,10 @@ const ControlCharacter = ({character, game}) => {
                 {DefaultActivities.map(activity =>
                     <option key={activity} value={activity}>{activity}</option>)}
             </select>
-            <input disabled={!localActivity || (localActivity === character.activity)} type="submit"
+            <input disabled={!localActivity || (localActivity === crewMember.activity)} type="submit"
                    value="Assign"/>
         </form>
     </Panel>
 }
 
-export default ControlCharacter
+export default ControlCrewMember

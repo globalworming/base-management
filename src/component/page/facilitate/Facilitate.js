@@ -39,7 +39,7 @@ function Facilitate() {
             <ActivePlayers players={players}/>
         </Panel>
         <Panel>
-            <ShowsFacilitatorCrew characters={crew}/>
+            <ShowsFacilitatorCrew crew={crew}/>
         </Panel>
         <hr style={{width: "100%"}}/>
         <ShowsGame game={game}/>

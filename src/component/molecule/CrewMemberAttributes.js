@@ -1,6 +1,6 @@
 import React from "react";
 
-function CharacterAttributes({character}) {
+function CrewMemberAttributes({crewMember}) {
 
     function Row({children}) {
         return <div
@@ -17,12 +17,12 @@ function CharacterAttributes({character}) {
     }
 
     return <div style={{display: "flex", flexDirection: "column", width: "100%"}}>
-        <Row><span>{character.name}</span></Row>
-        <Row><span>Health:</span><span>{character.health}</span></Row>
+        <Row><span>{crewMember.name}</span></Row>
+        <Row><span>Health:</span><span>{crewMember.health}</span></Row>
         <Row><span>Temp.:</span><span>37.4°C</span></Row>
         <Row><span>Mood:</span><span>Cheerful</span></Row>
     </div>
 }
 
 
-export default CharacterAttributes
+export default CrewMemberAttributes

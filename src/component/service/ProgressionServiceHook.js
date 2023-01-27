@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {db} from "../../config/firebaseConfig";
 import {doc, runTransaction, writeBatch} from "firebase/firestore";
 import {GameProgressionState} from "../../domain/GameProgressionState";
-import CharacterActivities from "../../domain/CharacterActivities";
+import CrewActivities from "../../domain/CrewActivities";
 
 function useProgressionService(game, crew) {
     const [tickProgress, setTickProgress] = useState(undefined)
@@ -40,9 +40,9 @@ function useProgressionService(game, crew) {
         const gameDocRef = doc(db, "games", game.id);
         const batch = writeBatch(db);
         batch.set(gameDocRef, nextGame)
-        for (const character of nextCrew) {
-            const characterDocRef = doc(db, "games", game.id, "characters", character.id);
-            batch.set(characterDocRef, character)
+        for (const crewMember of nextCrew) {
+            const crewMemberDocRef = doc(db, "games", game.id, "crew", crewMember.id);
+            batch.set(crewMemberDocRef, crewMember)
         }
 
         await batch.commit();
@@ -60,9 +60,9 @@ function next(game, crew) {
     })
 
     function handleActivities() {
-        for (const nextCharacter of nextCrew) {
-            if (nextCharacter.activity === CharacterActivities.SMELT_WATER) {
-                nextCharacter.health -= 66;
+        for (const crewMember of nextCrew) {
+            if (crewMember.activity === CrewActivities.SMELT_WATER) {
+                crewMember.health -= 66;
             }
         }
     }

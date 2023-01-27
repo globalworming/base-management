@@ -1,0 +1,4 @@
+"day","hour","event","arg1"
+"1","0","JumpTicks","23"
+"2","0","JumpTicks","23"
+"3","0","ScenarioEnds",""

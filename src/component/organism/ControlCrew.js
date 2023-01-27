@@ -1,8 +1,8 @@
 import React from "react";
-import ControlCharacter from "./ControlCharacter";
+import ControlCrewMember from "./ControlCrewMember";
 import Panel from "../atom/Panel";
 
-function ControlCharacters({game, crew}) {
+function ControlCrew({game, crew}) {
 
     if (crew === undefined || !game) {
         return null;
@@ -18,13 +18,13 @@ function ControlCharacters({game, crew}) {
             alignItems: "stretch",
             justifyContent: "space-between",
         }}>
-            {crew.map(character => <ControlCharacter
-                character={character}
+            {crew.map(crewMember => <ControlCrewMember
+                crewMember={crewMember}
                 game={game}
-                key={character.id}
-            ></ControlCharacter>)}
+                key={crewMember.id}
+            ></ControlCrewMember>)}
         </Panel>
     </>
 }
 
-export default ControlCharacters;
+export default ControlCrew;
